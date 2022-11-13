@@ -1,7 +1,7 @@
 --- 
 title: "Notes de \"Programmation Orientée Objet\" avec Java"
 author: "Lauranne Sarribouette"
-date: "12 novembre 2022 (édité le `r Sys.Date()`)"
+date: "édité le 12 novembre 2022 (mis à jour le `r Sys.Date()`)"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -20,29 +20,3 @@ L'objectif de ce projet est d'avoir un support durable, clair et facile à manip
 J'y ai inclus les notions de base, accompagnées autant que possible de définitions, de méthodologies, de démonstrations-type et d'exemples simples.
 
 *Pour information, le projet a été réalisé avec `r R.version.string` et RStudio 2022.7.2.576 (Spotted Wakerobin).*
-
-Codes utilisés :  
-
-- U+2295 = ⊕
-- U+25EC  = ◬
-- U+2600 = ☀
-- U+26A0 = ⚠
-
-Chunk java vide :
-```{java, eval=FALSE}
-
-```
-
-
-```{java, eval=FALSE}
-System.out.println("Hello world with Java")
-```
-
-
-
-```{r, eval=FALSE}
-bookdown::render_book()
-
-bookdown::serve_book()
-```
-

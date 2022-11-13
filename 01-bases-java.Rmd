@@ -322,3 +322,174 @@ public class Lecture {
 > Portée des variables : lorsqu'on ajoute le traitement des exceptions (`try...catch`), on déclare les variables en dehors pour y avoir accès.
 
 > Alternative : déclarer les FileWriter, FileInputStream et Scanner dans le `try` : `try(FileWriter f = new FileWriter('./valeurs.txt') {...}`
+
+## Conversions
+
+On a vu trois façons de convertir une variable :
+  
+  - Passer d'un type primitif à un autre (\@ref(conversion-prim-prim))
+  - Passer d'un type primitif à son équivalent objet, et réciproquement (\@ref(conversion-prim-obj))
+  - Passer d'un type objet à un autre (\@ref(conversion-obj-obj))
+
+> Plus de détails sur les types en Java [ici](https://www.geeksforgeeks.org/data-types-in-java/)
+
+> Plus de détails sur les conversions en Java [ici](https://www.ukonline.be/cours/java/apprendre-java/chapitre2-4)
+
+### Passer d'un type primitif à un autre {#conversion-prim-prim}
+
+Si on ne perd pas d'informations (par exemple, un entier converti en nombre décimal), la conversion est **implicite** et sera gérée automatiquement.
+```{java, eval=FALSE}
+int a = 5;
+double b = a;
+System.out.println(a); // 5
+System.out.println(b); // 5.0
+```
+  
+Si on perd de l'information (par exemple, un nombre décimal converti en entier), la conversion doit être **explicite**.  
+On "cast" alors la variable en mettant le type cible entre parenthèses : `int uneVariableInt = (int) uneVariableDoubleAConvertir`.
+```{java, eval=FALSE}
+double c = 15.76;
+int d = c ; // Exception : "Type mismatch: cannot convert from double to int"
+int d = (int) c;
+System.out.println(c); // 15.76
+System.out.println(d); // 15
+```
+
+
+### Passer d'un type primitif à son équivalent objet, et réciproquement {#conversion-prim-obj}
+
+Pour passer un type primitif à son équivalent objet, on utilise des classes *wrapper* : `Integer varObjet = new Integer(10)` (avec 10 un entier primitif).
+
+> C'est la notion de *boxing*.
+
+A l'inverse, on utilise ces mêmes classes pour passer d'un objet de *wrapper* à sa valeur primitive : `int varPrimitive = varObjet`.  
+
+> C'est la notion de *unboxing*.
+
+```{r cache=TRUE, echo=FALSE, fig.cap='(ref:tab-wrapper)', message=FALSE, warning=FALSE}
+library(dplyr)
+library(kableExtra)
+
+tab <- dplyr::bind_cols(
+  c("boolean",
+    "byte",
+    "char",
+    "float",
+    "int",
+    "long",
+    "short",
+    "double"), 
+  c("Boolean",
+    "Byte",
+    "Character",
+    "Float",
+    "Integer",
+    "Long",
+    "Short",
+    "Double"),
+  ) 
+tab %>% setNames(c("Types primitifs", "Classes Wrapper")) %>% 
+  kableExtra::kbl("html", caption = "Liste des 8 types primitifs et leur classe wrapper correspondante") %>% 
+  kable_styling(full_width = FALSE)
+
+```
+
+Lorsque l'on convertit un type primitif à son équivalent objet, et réciproquement, il n'y a **pas de perte d'informations** : la conversion est donc **implicite** et sera gérée automatiquement.
+
+> C'est la notion de *auto-boxing* et *auto-unboxing*.
+
+```{java, eval=FALSE}
+Integer inum = 3; //Autoboxing : on affecte un int à un Integer
+Long lnum = 32L; //Autoboxing : on affecte un long à un Long
+ArrayList<Integer> arrayList = new ArrayList<Integer>();
+arrayList.add(11); //Autoboxing : on affecte des int à un ArrayList qui attend des Integer
+arrayList.add(22); 
+
+int num = inum; //Auto-unboxing : on affecte un objet Integer à un int
+int num2 = arrayList.get(0); //Auto-unboxing : la méthode get retourne un objet Integer
+
+System.out.println(inum); // 3
+System.out.println(lnum); // 32
+System.out.println(arrayList); // [11, 22]
+System.out.println(num); // 3
+System.out.println(num2); // 11
+```
+
+> Ce type de conversion est très utile notamment pour utiliser le package `java.util` qui ne prend en compte que des types objets, notamment avec `ArrayList`.
+
+> Plus de détails sur les notions de *auto-boxing* et *auto-unboxing* en Java [ici](https://beginnersbook.com/2014/09/java-autoboxing-and-unboxing-with-examples/)
+
+Il est possible de faire la conversion de manière **explicite** avec les méthodes de classes *wrapper* :
+
+  - `valueOf()`, qui prend en paramètre au choix une `String s` ou une `primitive p`  
+  Elle permet de créer un objet *wrapper* à partir d'une primitive ou d'une String de manière explicite. 
+  - `xxxValue()`, qui ne prend aucun paramètre 
+  Elle permet de récupérer la primitive stockée dans un objet *wrapper* de manière explicite, **uniquement** pour les types nombre.
+  
+```{java, eval=FALSE}
+//--- valueOf()
+// avec une String en paramètre
+Integer I1 = Integer.valueOf("10");
+Double D1 = Double.valueOf("56.3");
+Integer I2 = Integer.valueOf("ten"); // RuntimeException : "java.lang.NumberFormatException" car
+                                     // la valeur en paramètre est convertie littéralement
+System.out.println(I1); // 10
+System.out.println(D1); // 56.3
+
+// avec une primitive en paramètre
+Double D2 = Double.valueOf(99.887654);
+Character C1 = Character.valueOf('a');
+
+System.out.println(D2); // 99.887654
+System.out.println(C1); // a
+
+//---xxxValue()
+int i = I1.intValue();
+double d = D2.doubleValue();
+char c = C1.characterValue(); // Exception : "The method characterValue() is undefined for the
+                              // type Character"
+
+System.out.println(i); // 10
+System.out.println(d); // 99.887654
+
+```
+
+
+### Passer d'un type à un autre {#conversion-obj-obj}
+
+Pour passer d'un type à un autre, la conversion est cette fois forcément **explicite**.
+
+On utilise également les méthodes de classes *wrapper* :
+
+
+  - `parseXxx()`, qui prend en paramètre `String s`  
+  Elle permet de convertir une String en une primitive.
+  - `toString()`, qui prend au choix aucun paramètre ou une `primitive p`  
+  Elle permet de convertir un objet *wrapper* ou une primitive en String.
+
+```{java, eval=FALSE}
+//--- parseXxx()
+int i = Integer.parseInt("456");
+double d = Double.parseDouble("2300.74");
+boolean b = Boolean.parseBoolean("true");
+
+System.out.println(i); // 456
+System.out.println(d); // 2300.74
+System.out.println(b); // true
+
+//--- toString()
+// public (sans parametre)
+Integer I = 6;
+String s = I.toString();
+System.out.println(s); // 6
+
+// avec une String en paramètre
+String s2 = Integer.toString(33);
+System.out.println(s); // 33
+
+String s1 = Character.toString('*');
+System.out.println(s1); // *
+
+```
+
+> Plus de détails sur les méthodes de classes *wrapper* en Java [ici](https://www.geeksforgeeks.org/utility-methods-of-wrapper-classes-in-java/)
