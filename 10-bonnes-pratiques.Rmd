@@ -1,3 +1,2 @@
-# La généricité
+# Bonnes pratiques
 
-blop
