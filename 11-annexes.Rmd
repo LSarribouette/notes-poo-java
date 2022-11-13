@@ -1,0 +1,14 @@
+# (APPENDIX) Appendix {-} 
+
+# Appendix A
+
+## conventions 
+`;`,  nommage, signature, package...
+
+## choisir sa version de java
+
+# Annexe B
+
+## différence entre déclaration, affectation, initialisation,...
+
+

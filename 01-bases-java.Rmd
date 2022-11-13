@@ -1,0 +1,324 @@
+# Les bases de java
+
+Cette partie comporte principalement des rappels de l'initiation à Java. Les notions sont donc peu détaillées.
+
+## Le langage Java
+
+Java est un langage qui doit être compilé puis exécuté.  
+
+Un fichier .java porte le nom de sa classe principale. La méthode ``main`` d'une classe est la première ligne qui s'exécute.  
+
+## Affichage sur la console
+
+Sortie standard et sortie des messages d'erreur :
+```{java, eval=FALSE}
+System.out.println()
+System.err.println()
+```
+
+> `ln` permet le retour à la ligne après le message.
+
+> Ce sont deux flux distincts : il peut y avoir concurrence de flux (et ainsi un affichage console dans un ordre surprenant)
+
+Formatage des messages possible avec `System.out.printf()` ou `String.format()`, dont les paramètres sont :
+
+  - une String avec autant d'indicateurs que nécesaires,
+  - un paramètre supplémentaire pour chaque indicateur appelé.
+
+Les principaux indicateurs sont `%d` (nombre entier), `%f` (nombre décimal), `%s` (chaîne de caractères), `%n` (retour à la ligne).
+
+```{java, eval=FALSE}
+System.out.printf('Nom: %s, prénom; %s, âge: %d ans, taille: %.2fm',
+                  nom, prenom, age, taille)
+```
+**Output : ** *Nom: Lebonvieux, prénom: Bob, âge: 64 ans, taille: 1.73m*
+
+
+> `%.2f` permet de limiter le nombre à deux chiffres après la virgule.
+
+> `%-75s` permet d'obtenir un chaîne de caractère de 75 caractères de long : elle sera complétée par des espaces si besoin.
+
+## Déclaration de variables
+
+Une variable : `type variable = valeur`  
+Une constante : `type final CONSTANTE = valeur`
+
+On remplace, bien sûr, par le type voulu (`int, float, long, double, char, boolean, String,`...).
+
+> On précise : `float varFloat = 65f` et `long varLong = 15648979L` car ?????
+
+> On peut déclarer une constante en dehors du `main` pour qu'elle soit accessible dans tout le package : `public static final type NOM_CONSTANTE = valeur`
+
+## Tableaux
+
+Les tableaux ne prennent qu'un seul type de donnée, ils sont déclarés avec des crochets et ont une taille fixe, précisée entre les crochets : `type[] tab = new type[dimension]`.  
+Ils sont un type de référence : ils sont instanciés sur le tas (*càd* appelés via une adresse mémoire).  
+  
+On accède aux cases d'un tableau avec leurs indices (qui commencent à zéro) : `tab[i]`.
+
+> Une case vide d'un tableau prend la valeur par défaut de son type (ex: zéro pour un int).
+
+## Saisies utilisateur
+Méthodologie :
+
+  - on utilise le package `Scanner`, qu'il faut importer
+  - on instancie un nouveau Scanner `scan` en lui donnant `System.in` en paramètre
+  - on affiche un message à l'utilisateur
+  - on stocke la saisie dans une variable du type attendu grâce aux méthodes `next*()` de `Scanner` (`nextInt(), nextFloat(), nextLine(),`...)
+  - on ferme le Scanner à la fin des saisies
+
+```{java, eval=FALSE}
+import java.util.Scanner;
+Scanner scan = new Scanner(System.in);
+System.out.println('Comment allez-vous ?');
+String saisie = scan.nextLine();
+System.out.println('Combien font 2+2 ?');
+int reponse = scan.nextInt();
+scan.nextLine();
+scan.close();
+```
+
+> Les méthodes `next*()` ne prennent pas en compte le retour à la ligne, sauf `nextLine()`. Si un `nextLine()` suit un  `next*()`, il va prendre en compte son retour à la ligne et ne rien afficher. Pour éviter toute confusion, on fait suivre un `next*()` par un `nextLine()` vide.
+
+## Conditionnelles
+Instruction `if` :
+```{java, eval=FALSE}
+if (condition booleenne) {
+  instructions;
+} else if (autres condition booleenne) {
+  autres instructions;
+} else {
+  autres instructions;
+}
+```
+
+> Ne pas confondre affectation (`=`) et comparaison (`==`).
+
+> Deux Strings se comparent avec `equals()` : `maString1.equals(maString2)`
+
+
+Instruction `switch` :
+```{java, eval=FALSE}
+switch (variable) {
+case valeur1:
+    instructions;
+    break;
+case valeur2:
+case valeur3:
+    instructions;
+    break;
+default:
+    instructions;
+    break;
+}
+```
+
+> On peut associer plusieurs valeurs à une instruction : c'est le `break` qui indique la limite d'action des instructions.
+
+## Boucles
+
+Boucle `for` :  
+On connait le nombre d'itérations en avance.
+```{java, eval=FALSE}
+for (int i=0; i<valeur; i++) {
+  instructions;
+}
+```
+
+> Une boucle peut utiliser la taille d'un tableau avec `tab.length`.
+
+Boucle `foreach` :  
+On lit un à un chaque élément d'un tableau.
+```{java, eval=FALSE}
+type[] tab = new type[dimension];
+for(type element: tab) {
+  instructions;
+}
+```
+
+Boucle `while` :  
+On ne connait pas le nombre d'itérations en avance et on ne veut pas forcément rentrer dans le boucle.  
+On reste dans la boucle *tant que* la condition est **vraie**.
+```{java, eval=FALSE}
+while(condition booleenne) {
+  instructions;
+}
+```
+
+Boucle `do while` :  
+On ne connait pas le nombre d'itérations en avance mais on veut forcément rentrer dans la boucle au moins une fois.  
+On reste dans la boucle *tant que* la condition est **vraie**.
+```{java, eval=FALSE}
+do {
+  instructions;
+} while (condition booleenne);
+```
+
+> On déclare les variables en dehors des boucles si on a besoin qu'elles soient accessibles. Il faut souvent les initialiser dès la déclaration (par exemple à zéro ou `null`). 
+
+## Fonctions et procédures 
+
+Ce sont des méthodes paramétrables: 
+
+  - les procédures ne renvoient rien
+  - les fonctions renvoient une et une seule valeur
+```{java, eval=FALSE}
+void nomProcedure(parametres potentiels) { 
+  instructions; 
+}
+
+type nomFonction(parametres potentiels) { 
+  instructions;
+  return variableDuBonType;
+  }
+```
+
+> La variable retournée doit être du même type qu'annoncé dans le signature de la fonction.
+
+> Portée des variables et encapsulation : elles sont plus ou moins accessibles dépendant de l'endroit où elles sont déclarées.  
+Par exemple : une variable déclarée dans une fonction sera uniquement accessible à l'intérieur de celle-ci. Une variable déclarée dans le `main`, quant à elle, sera accessible aux méthodes utilisées dans le `main`.
+
+## Les exceptions
+
+*(voir le chapitre dédié \@ref(les-exceptions) pour plus de détails et des exemples)*
+
+Elles permettent de garantir une sortie propre et que le programme ne s'arrête pas de manière incontrôlée, s'il s'agit d'une situation contrôlable.
+
+Méthodologie pour traiter une exception prédéfinie :
+
+  - on récupère le nom de l'exception lorsque le programme s'arrête
+  - on entoure le bout de code concerné dans un `try{}`
+  - on fait suivre par un `catch(Exception e) {}`
+  - si besoin, on ajoute un `finally {}` pour exécuter certaines instructions dans tous les cas (que l'exception soit levée ou non)
+  
+```{java, eval=FALSE}
+try {
+  bout de mon code, surlequel je leve une exception;
+} catch (uneException e) {
+  instructions si levee de exception;
+} finally {
+  instructions optionnelles;
+}
+```
+
+> Une exception est un type : c'est pourquoi je la déclare et la nomme (`e` par exemple).
+
+Méthodologie pour une méthode définie comme levant obligatoirement une exception :
+
+  - on ajoute `throws Exception` à sa signature 
+  - on ajoute dans son body une instruction `if` qui, si elle est vraie, permet de levée l'exception avec `throw new Exception`
+  - lors de l'appel de cette fonction, elle devra obligatoirement être encapsulée d'en un `try...catch`
+  
+```{java, eval=FALSE}
+... nomMethode(...) throws Exception {
+  if (condition booleenne) {
+    throw new Exception(...);
+  }
+}
+```
+
+> La méthode `.getMessage()` permet de récupérer le message d'erreur.
+
+> La 'StackTrace' représente la totalité du message d'erreur.
+
+## Ecriture et lecture dans un fichier
+
+Méthodologie pour écrire dans un fichier :
+
+  - on utilise le package `FileWriter`, qu'il faut importer
+  - on instancie un nouveau FileWriter `fw` en lui donnant le chemin vers le fichier en paramètre
+  - on écrit dans le fichier
+  - on ferme le FileWriter à la fin de l'écriture 
+
+```{java, eval=FALSE}
+import java.io.FileWriter;
+FileWriter fw = new FileWriter('.\cheminVersFichier\fichier.txt');
+fw.write(...);
+fw.close();
+```
+
+> On peut indiquer le chemin relatif avec `.\` qui part de la racine de l'espace de travail (*working directory* ou *workspace*).
+
+Méthodologie pour lire dans un fichier :
+
+  - on utilise le package `FileInputStream`, qu'il faut importer
+  - on instancie un nouveau FileInputStream `fi` en lui donnant le chemin vers le fichier en paramètre
+  - on utilise le package `Scanner`, qu'il faut également importer
+    - on instancie un nouveau Scanner `scan` en lui donnant le FileInputStream `fi` en paramètre
+    - on lit les lignes une à une tant qu'il en reste avec une boucle `while`, `scan.hasNextLine()` et `nextLine()`
+    - on ferme le Scanner à la fin des saisies
+  - on ferme le FileInputStream à la fin de la lecture 
+```{java, eval=FALSE}
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+FileInputStream fi = new FileInputStream('.\cheminVersFichier\fichier.txt');
+Scanner scan = new Scanner(fi);
+while(scan.hasNextLine()) {
+  System.out.println(scan.nextLine());
+}
+scan.close();
+fi.close();
+```
+
+**Sauf que** FileWriter et FileInputStream sont des méthodes qui lèvent obligatoirement des exceptions !! Il faut les entourer de `try...catch` :
+```{java, eval=FALSE}
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.channels.FileLockInterruptionException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
+public class Ecriture {
+	public static void main(String[] args) {
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter('.\Documents\tot.txt');
+			fw.write("Hello world \n");
+			for(int i=0;i<1000;i++) {
+				fw.write(Integer.toString(i) + "\n");
+			}
+		} catch (IOException e) {
+			System.out.println('Impossible d\'écrire dans le fichier');
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				System.out.println('Problème de fermeture');
+			}
+		}
+	}
+}
+
+public class Lecture {
+
+	public static void main(String[] args) {
+		Scanner scan = null; 
+		FileInputStream fichier = null;
+		try {
+			fichier = new FileInputStream('.\Documents\tot.txt');
+			scan = new Scanner(fichier);
+			while(scan.hasNextLine()) {
+				System.out.println(scan.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println('Lecture impossible');
+		} finally {
+			scan.close();
+			try {
+				fichier.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println('Fermeture impossible');
+			}
+		}
+	}
+}
+```
+
+> Portée des variables : lorsqu'on ajoute le traitement des exceptions (`try...catch`), on déclare les variables en dehors pour y avoir accès.
+
+> Alternative : déclarer les FileWriter, FileInputStream et Scanner dans le `try` : `try(FileWriter f = new FileWriter('./valeurs.txt') {...}`
