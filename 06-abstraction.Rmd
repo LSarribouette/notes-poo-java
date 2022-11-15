@@ -1,2 +1,15 @@
 # Les classes asbtraites, les méthodes asbtraites et les interfaces
 
+## Classe abstraite
+
+## Méthode abstraite
+
+## Interface
+
+(+) Complémentaire à l’héritage :Remplace l’héritage multiple :
+    - Permet de faire partager des fonctionnalités communes à des classes différentes
+    - Vue comme un contrat imposé aux classes qui l’implémente
+    - Vue comme un type
+    
+## Bilan
+

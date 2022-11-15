@@ -1,2 +1,12 @@
 # L'héritage
 
+But :
+
+## Classe parent
+
+## Classe enfant
+
+## Classe Objet
+
+## Transtypage
+

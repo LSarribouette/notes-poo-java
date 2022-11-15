@@ -1,2 +1,26 @@
 # La création de classes
 
+*Rappel* : une classe
+
+Attributs d'instance
+(+) class attributes are variables within a class
+    You can access attributes by creating an object of the class, and by using the dot syntax (.)
+    Modify or override. Or constante `final`
+    > The final keyword is called a "modifier". You will learn more about these in the Java Modifiers Chapter.
+    The dot (.) is used to access the object's attributes and methods.
+
+Visibilité
+
+Encapsulation
+
+(+) dans une méthode publique, passer obligatoirement par les assesseurs et mutateurs
+
+Méthodes d'instance
+
+Constructeur
+
+Attributs de classe
+
+Méthodes de classe
+
+Types **valeur** *vs* types **référence**

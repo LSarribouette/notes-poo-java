@@ -1,2 +1,6 @@
 # Bonnes pratiques
 
+## Principes
+DRY
+ACID
+

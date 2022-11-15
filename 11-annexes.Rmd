@@ -2,10 +2,19 @@
 
 # Appendix A
 
+Conventions : nommage,...
+    - package : en minuscules
+    - classe : en UpperCamelCase
+    - instance : en UpperCamelCase
+    - méthode : lowerCamelCase
 
 
 # Annexe B
 
+Déclaration, affectation, initialisation, instanciation,....
 
+Différence entre un argument et un paramètre (https://www.developpement-informatique.com/article/248/methodes-et-surcharge-des-methodes-en-java)
 
+# Annexe C
 
+design patterns : factory, singleton, observer, 

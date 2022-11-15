@@ -1,2 +1,47 @@
 # La généricité
 
+But et définition
+
+(+) 
+    Extension au typage fort 
+    Détecter les erreurs à la compilation
+    Pouvoir passer un type en paramètre
+    Syntaxe : utilisation du «diamant»  <Type1[,Type2, ...]>
+
+(+) Type paramètre ; Type argument
+
+(+) La généricité : appliquer des contraintes
+    MaClasse<T extends Vehicule> *classe*
+    MaClasse<T extends Vehicule & Comparable & Cloneable> *1 classe et 2 interfaces*
+    Paire<X extends Vehicule, Y extends Comparable>
+    Non : extends 2 classes
+    Non : appeler l'interface avant la classe
+
+## Classes génériques
+
+## Méthodes génériques
+
+## Généricité et transtypage
+
+## Généricité et types de base
+
+## Ensembles
+
+Besoin de variables faisant référence à plusieurs éléments :
+3 solutions : 
+    - Utiliser un tableau : `T[]`
+    - Utiliser une collection : `List<T>`
+    - Utiliser un dictionnaire clé/valeur : `Map<K,V>`
+
+Méthodes : add(), remove(), size(), contains()
+
+*Schéma interfaces List et Map* ~ issues de `Iterable` ??
+
+## Interfaces : un niveau d'abstraction
+
+## Collection : zoom sur ArrayList
+
+## Collection : zoom sur LinkedList
+
+## Dictionnaire : zoom HashTable
+

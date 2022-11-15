@@ -1,2 +1,31 @@
 # Les exceptions
 
+## Exceptions et héritage
+
+## Erreurs
+
+Définition
+
+## Exceptions non contrôlées
+
+Définition
+
+### Exceptions non contrôlées prédéfinies
+
+Méthodologie
+
+### Exceptions non contrôlées personnalisées
+
+Méthodologie
+
+## Exceptions contrôlées
+
+Définition
+
+### Exceptions contrôlées prédéfinies
+
+Méthodologie
+
+### Exceptions contrôlées personnalisées
+
+Méthodologie
