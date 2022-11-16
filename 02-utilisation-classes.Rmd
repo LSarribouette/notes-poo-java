@@ -3,21 +3,22 @@
 ## Définitions
 
 But : 
-    - Regrouper des variables "qui vont bien ensemble"
-    - Associer les méthodes qui manipulent ces valeurs
+
+  - Regrouper des variables "qui vont bien ensemble"
+  - Associer les méthodes qui manipulent ces valeurs
     
-Classe = un regroupement d'objets caractérisés par une sémantique commune,  
+**Classe** = un regroupement d'objets caractérisés par une sémantique commune,  
 *dit autrement*, une classe est un modèle qui permet de créer des objets ayant des caractéristiques communes
 
-Instance = un élément de ce regroupement
+**Instance** = un élément de ce regroupement
 
 ## Utiliser une classe
 
 Méthologie :
 
-    - Importer la classe (\@ref(import-classe)) : `import package.souspackage.Classe;`
-    - Déclarer une variable de type objet (\@ref(declare-classe)) : `Classe varDeTypeObjet ...`
-    - Créer une instance d'objet grâce au constructeur (\@ref(instance-classe)) : `... = new Classe(liste de parametres potentiels);`
+  - Importer la classe (\@ref(import-classe)) : `import package.souspackage.Classe;`
+  - Déclarer une variable de type objet (\@ref(declare-classe)) : `Classe varDeTypeObjet ...`
+  - Créer une instance d'objet grâce au constructeur (\@ref(instance-classe)) : `... = new Classe(liste de parametres potentiels);`
 
 Exemple avec une classe que l'on connait : `Scanner`
 
@@ -59,8 +60,8 @@ Un constructeur est une méthode très particulière. Elle s'appelle toujours co
 
 L'utilisation d'une classe donne accès aux méthodes définies pour cette classe :
 
-    - les méthodes d'instance
-    - les méthodes de classe
+  - les méthodes d'instance
+  - les méthodes de classe
 
 > *Rappels* : Une méthode permet de faire une action, quand elle est **appelée** avec un point suivi du nom de la méthode et de parenthèses : `.nomMethode()`
 
@@ -74,8 +75,8 @@ Elles sont appelées en plaçant le nom de la classe concernée avant le point :
 
 Chaque instance a donc accès à : 
 
-    - ses caractéristiques propres, individuelles (*éléments d'instance*)
-    - et à des caractéristiques collectives (valables pour l'ensemble des instances) et communes (identiques pour toutes les instances).
+   - ses caractéristiques propres, individuelles (*éléments d'instance*)
+   - et à des caractéristiques collectives (valables pour l'ensemble des instances) et communes (identiques pour toutes les instances).
 
 ## Surcharge {#surcharge}
 
@@ -118,4 +119,4 @@ String s3 = s1 + s2; // on crée explicite une autre instance
 System.out.println("Voici " + s1 + "et même " + s2); // on crée implicitement une nouvelle instance
 ```
 
-Alternative : StringBuilder, qui est modifiable
+Alternative : `StringBuilder`, qui est modifiable

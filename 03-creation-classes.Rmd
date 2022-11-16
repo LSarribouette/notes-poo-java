@@ -1,27 +1,29 @@
 # La création de classes
 
-*Rappel* : 
-    - une classe est définie dans un fichier du même nom
-    - le nom de la classe est en UpperCamelCase
-    - elle est définie au sein d'un package
+*Rappels* : 
+
+  - une classe est définie dans un fichier du même nom
+  - le nom de la classe est en UpperCamelCase
+  - elle est définie au sein d'un package
 
 ## Créer une classe
 
 Méthodologie :
-    (+) en amont :
-        - je crée un projet : `MonProjet`
-        - je crée un package : `fr.lsarribouette.monprojet.metier`
-        - je crée un fichier .java qui porte le nom de la classe que je veux créer : `MaClasse.java`
-    - dans le fichier, je commence par indiquer le package dans lequel je me trouve : `package fr.lsarribouette.monprojet.metier`
-    - je définis la signature de ma classe (\@ref(signature-classe)) : `public class MaClasse {}`
-    - Je définis le corps de ma classe entre les accolades (\@ref(body-classe)) : 
-        - attributs d'instance
-        - attributs de classe
-        - constantes de classe
-        - constructeurs
-        - méthodes d'instance
-        - méthodes de classe
-        - assesseurs et mutateurs
+
+  - en amont :
+    - je crée un projet : `MonProjet`
+    - je crée un package : `fr.lsarribouette.monprojet.metier`
+    - je crée un fichier .java qui porte le nom de la classe que je veux créer : `MaClasse.java`
+  - dans le fichier, je commence par indiquer le package dans lequel je me trouve : `package fr.lsarribouette.monprojet.metier`
+  - je définis la signature de ma classe (\@ref(signature-classe)) : `public class MaClasse {}`
+  - Je définis le corps de ma classe entre les accolades (\@ref(body-classe)) : 
+      - attributs d'instance
+      - attributs de classe
+      - constantes de classe
+      - constructeurs
+      - méthodes d'instance
+      - méthodes de classe
+      - assesseurs et mutateurs
 
 > Par convention, on définit le corps d'une classe dans cet ordre.
 
@@ -44,10 +46,10 @@ public class Chat {
 ### Signature d'une classe {#signature-classe}
 
 La signature d'une classe est composée de :
-    - sa visibilité : par convention `public`, *çàd* accessible de n'importe où
-    - son type `class`
-    - son nom
-    - une paire d'accolades où se trouve le corps de la classe (*body*)
+  - sa visibilité : par convention `public`, *çàd* accessible de n'importe où
+  - son type `class`
+  - son nom
+  - une paire d'accolades où se trouve le corps de la classe (*body*)
 
 ### Corps d'une classe {#body-classe}
 
