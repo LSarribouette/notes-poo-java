@@ -2,6 +2,8 @@
 
 ## Classe abstraite
 
+[ici](https://www.ipgirl.com/1735/une-classe-abstraite-peut-elle-avoir-un-constructeur.html)
+
 ## Méthode abstraite
 
 ## Interface

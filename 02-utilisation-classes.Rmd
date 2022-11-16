@@ -32,7 +32,7 @@ Une classe est définie dans un fichier du même nom, ainsi les classes sont dé
 
 > Plus de détails sur l'organisation des fichiers dans un projet Java dans le cours de Développement en couche.
 
-La méthode `main()` est la classe principale : c'est le point d'entrée du programme et la première classe exécutée. 
+La méthode `main()` est la méthode principale : c'est le point d'entrée du programme et la première méthode exécutée. 
 
 > On peut avoir plusieurs fichiers avec une classe `main`, par exemple pour tester individuellement les classes (TestClasse1.java, TestClasse2) : c'est alors la classe `main` dans laquelle on se trouve qui est exécutée.  
 *Remarque* : le programme entier est exécutée quand même, on peut donc avoir des erreurs survenues dans d'autres `main`.
@@ -51,7 +51,7 @@ La classe est un type complexe (ou objet, ou référence) et elle est utilisée 
 
 Une instance d'objet se crée en l'initalisant avec le mot-clé `new` suivi de l'appel à un constructeur. 
 
-Un constructeur est méthode très particulière. Elle s'appelle toujours comme la classe et peut prendre soit aucun paramètre, soit un ou plusieurs (notion de *surcharge* (\@ref(surcharge))).
+Un constructeur est une méthode très particulière. Elle s'appelle toujours comme la classe et peut prendre soit aucun paramètre, soit un ou plusieurs (notion de *surcharge* (\@ref(surcharge))).
 
 > Les paramètres potentiels sont listés dans la documentation java (ou *javadoc*). L'auto-complétion permet la plupart du temps d'avoir accès à la liste des paramètres potentiels. 
 
@@ -84,23 +84,23 @@ Mécanisme qui permet d'avoir plusieurs méthodes portant le même nom, qui se d
 ```{java, eval=FALSE}
 // Exemple avec les différents constructeurs de la classe Chat
 Chat voyou = new Chat("Voyou") // Un seul parametre : prenom
-Chat gandhi = new Chat("Gandhi",4,"Axel") // Trois parametre : prenom, age, maitre
+Chat gandhi = new Chat("Gandhi",4,"Axel") // Trois parametres : prenom, age, maitre
 Chat pouloute = new Chat("Pouloute",1.2) // Deux parametres : prenom, poids
 ```
 
 > Il n'est pas possible de surcharger par type de retour : on surcharge sur les paramètres d'entrée !
 
 ```{java, eval=FALSE}
-    public class TestSurcharge {
-    
-        public double getValue(){
-            // ...
-        }
-        // erreur de compilation : getValue() est déjà définie
-        public char getValue(){
-            // ... 
-        }
+public class TestSurcharge {
+
+    public double getValue(){
+        // ...
     }
+    // erreur de compilation : getValue() est déjà définie
+    public char getValue(){
+        // ... 
+    }
+}
 ```
 
 
@@ -108,6 +108,14 @@ Chat pouloute = new Chat("Pouloute",1.2) // Deux parametres : prenom, poids
 
 La classe `String` permet de créer un objet `String` qui stocke une chaîne de caractères, sous la forme d'un tableau de charactères.
 
-Un objet `String` est **immmuable** : une fois construit, il n'est plus modifiable. Chaque action effectuée sur une `String` induit donc la création d'une nouvelle instance.
+Un objet `String` est **immmuable** : une fois construit, il n'est plus modifiable. Chaque action effectuée sur une `String` induit donc la création d'une nouvelle instance (soit un nouvel espace alloué en mémoire).
+
+```{java, eval=FALSE}
+String s1 = "une première chaîne de caractères";
+String s2 = new String("une seconde chaîne de caractères"); // il est possible d'utiliser le constructeur
+String s3 = s1 + s2; // on crée explicite une autre instance
+
+System.out.println("Voici " + s1 + "et même " + s2); // on crée implicitement une nouvelle instance
+```
 
 Alternative : StringBuilder, qui est modifiable

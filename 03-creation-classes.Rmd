@@ -1,6 +1,64 @@
 # La création de classes
 
-*Rappel* : une classe
+*Rappel* : 
+    - une classe est définie dans un fichier du même nom
+    - le nom de la classe est en UpperCamelCase
+    - elle est définie au sein d'un package
+
+## Créer une classe
+
+Méthodologie :
+    (+) en amont :
+        - je crée un projet : `MonProjet`
+        - je crée un package : `fr.lsarribouette.monprojet.metier`
+        - je crée un fichier .java qui porte le nom de la classe que je veux créer : `MaClasse.java`
+    - dans le fichier, je commence par indiquer le package dans lequel je me trouve : `package fr.lsarribouette.monprojet.metier`
+    - je définis la signature de ma classe (\@ref(signature-classe)) : `public class MaClasse {}`
+    - Je définis le corps de ma classe entre les accolades (\@ref(body-classe)) : 
+        - attributs d'instance
+        - attributs de classe
+        - constantes de classe
+        - constructeurs
+        - méthodes d'instance
+        - méthodes de classe
+        - assesseurs et mutateurs
+
+> Par convention, on définit le corps d'une classe dans cet ordre.
+
+```{java, eval=FALSE}
+package fr.lsarribouette.pleindechats.chat
+
+public class Chat {
+    // attributs d'instance
+    private String prenom;
+	private String couleur;
+	private double poids;
+	private int age;
+
+    // attributs de classe
+    private static int nbChats = 0;
+
+}
+```
+
+### Signature d'une classe {#signature-classe}
+
+La signature d'une classe est composée de :
+    - sa visibilité : par convention `public`, *çàd* accessible de n'importe où
+    - son type `class`
+    - son nom
+    - une paire d'accolades où se trouve le corps de la classe (*body*)
+
+### Corps d'une classe {#body-classe}
+
+Une classe est définie par divers éléments.
+
+Les attributs sont des variables à l'intérieur d'une classe.  
+Les **attributs d'instance** sont des variables personnalisables pour chaque instance.  
+Les **attributs de classe** sont des variables identiques pour toutes les instances.
+
+
+
 
 Attributs d'instance
 (+) class attributes are variables within a class

@@ -1,6 +1,8 @@
 # Bonnes pratiques
 
 ## Principes
-DRY
-ACID
 
+ACID  
+DRY  
+Encapsulation  
+Visibilité  

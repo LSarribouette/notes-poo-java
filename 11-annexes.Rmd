@@ -1,8 +1,9 @@
-# (APPENDIX) Appendix {-} 
+# (APPENDIX) Annexe {-#annexe} 
 
-# Appendix A
+# Annexe A
 
 Conventions : nommage,...
+    - projet : en UpperCamelCase
     - package : en minuscules
     - classe : en UpperCamelCase
     - instance : en UpperCamelCase
@@ -18,3 +19,5 @@ Différence entre un argument et un paramètre (https://www.developpement-inform
 # Annexe C
 
 design patterns : factory, singleton, observer, 
+
+UML : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/diagramme-de-classes-uml/

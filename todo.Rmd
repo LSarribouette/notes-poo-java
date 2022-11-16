@@ -1,0 +1,8 @@
+A faire :
+
+    - [ ] html_chapters(split = chapter+section)
+
+A réfléchir :
+
+    - glossaire ? déf au survol ?
+    - parties ? bases java | poo | dev en couches 
