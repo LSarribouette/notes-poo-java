@@ -1,4 +1,4 @@
-# L'héritage
+# L'héritage {#heritage}
 
 But :
 

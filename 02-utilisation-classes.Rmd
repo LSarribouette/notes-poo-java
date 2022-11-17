@@ -1,8 +1,8 @@
+# (PART) POO {-} 
+
 # L'utilisation des classes
 
-## Définitions
-
-But : 
+Objectif : 
 
   - Regrouper des variables "qui vont bien ensemble"
   - Associer les méthodes qui manipulent ces valeurs
@@ -68,15 +68,15 @@ L'utilisation d'une classe donne accès aux méthodes définies pour cette class
 Les méthodes d'instance s'appliquent à des instances de la classe (*obviously*), ce qui signifie que **toutes** les instances peuvent les utiliser indépendamment les unes des autres.  
 Elles sont appelées en plaçant le nom de l'instance concernée avant le point : `MonInstance.nomMethodeInstance();`
 
-Les méthodes de classe s'applique à la classe en soi, ce qui signifie que toutes les instances accède ????  
+Les méthodes de classe s'applique à la classe en soi, ce qui signifie que toutes les instances y accède de la même façon. 
 Elles sont appelées en plaçant le nom de la classe concernée avant le point : `MaClasse.nomMethoClasse();`
 
 **Eléments d'instance et de classe :**
 
 Chaque instance a donc accès à : 
 
-   - ses caractéristiques propres, individuelles (*éléments d'instance*)
-   - et à des caractéristiques collectives (valables pour l'ensemble des instances) et communes (identiques pour toutes les instances).
+  - ses caractéristiques propres, individuelles (*éléments d'instance*)
+  - et à des caractéristiques collectives (valables pour l'ensemble des instances) et communes (identiques pour toutes les instances).
 
 ## Surcharge {#surcharge}
 
