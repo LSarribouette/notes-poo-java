@@ -16,9 +16,9 @@ Objectif :
 
 Méthologie :
 
-  - Importer la classe (\@ref(import-classe)) : `import package.souspackage.Classe;`
-  - Déclarer une variable de type objet (\@ref(declare-classe)) : `Classe varDeTypeObjet ...`
-  - Créer une instance d'objet grâce au constructeur (\@ref(instance-classe)) : `... = new Classe(liste de parametres potentiels);`
+  - on importe la classe (\@ref(import-classe)) : `import package.souspackage.Classe;`
+  - on déclare une variable de type objet (\@ref(declare-classe)) : `Classe varDeTypeObjet ...`
+  - on crée une instance d'objet grâce au constructeur (\@ref(instance-classe)) : `... = new Classe(liste de parametres potentiels);`
 
 Exemple avec une classe que l'on connait : `Scanner`
 

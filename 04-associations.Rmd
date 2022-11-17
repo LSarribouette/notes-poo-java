@@ -2,13 +2,194 @@
 
 ## Association unidirectionnelle
 
-Définition
+Dans le cas d'une association unidirectionnelle, une classe A appelle une classe B, comme attribut, et peut l'utiliser comme un attribut normal : l'association est naviguable dans un sens uniquement.
 
-Méthodologie
+> Si la classe A a une association unidirectionnelle sur la classe B, alors A connait B mais B ne connait pas A.
+
+Méthodologie :
+
+    - en amont :
+        - on crée un projet : `MonProjet`
+        - on crée un package : `fr.lsarribouette.monprojet.metier`
+        - on crée deux classes : `MaClasseA.java` et `MaClasseB.java`
+
+    - dans `MaClasseA` :
+        - on ajoute un attribut objet dont le type est `MaClasseB` : `private MaClasseB instanceB;`
+        - on peux l'implémenter dans le constructeur
+        - on peux ajouter un getter et un setter 
+
+    - dans la méthode `main` de la classe de test :
+        - on crée d'abord une instance de `MaClasseB`
+        - on crée ensuite une instance de `MaClasseA` qui utilise l'instance de `MaClasseB`  
+
+Exemple d'association unidirectionnelle où une classe Etudiant a un attribut objet Université :
+
+**Universite.java** :  
+```{java, eval=FALSE}
+package fr.lsarribouette.associonsnous;
+
+public class Universite {
+	
+	// attributs d'instance
+	private String nom;
+	private String ville;
+	private int nbEleves;
+	
+	// constructeurs
+	public Universite(String nom, String ville) {
+		this.nom=nom;
+		this.ville=ville;
+	}
+	
+	// assesseurs et mutateurs
+	// choix :	get nbEleves, nom, ville
+	//			set nbEleves
+	public int getNbEleves() {
+		return nbEleves;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public String getVille() {
+		return ville;
+	}
+	public void setNbEleves(int nbEleves) {
+		this.nbEleves = nbEleves;
+	}
+	
+	// toString
+	// TODO supprimer avant mise en production
+	@Override
+	public String toString() {
+		return "Universite [nom=" + nom + ", ville=" + ville + ", nbEleves=" + nbEleves + "]";
+	}
+}
+```
+
+**Etudiant.java** :  
+```{java, eval=FALSE}
+package fr.lsarribouette.associonsnous;
+
+public class Etudiant {
+	
+	// attributs d'instance
+	private String prenom;
+	private int age;
+	private String niveauEtudes;
+	
+	private Universite univ; // attribut objet
+	
+	// constructeurs
+	public Etudiant(String prenom, Universite univ) {
+		this.prenom=prenom;
+		this.univ=univ; // implementation normale
+	}
+	
+	// assesseurs et mutateurs
+	// choix : 	get prenom, age, niveauEtudes, univ
+	//			set age, niveauEtudes, univ
+	public String getPrenom() {
+		return prenom;
+	}
+	public int getAge() {
+		return age;
+	}
+	public String getNiveauEtudes() {
+		return niveauEtudes;
+	}
+	public Universite getUniv() {
+		return univ;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public void setNiveauEtudes(String niveauEtudes) {
+		this.niveauEtudes = niveauEtudes;
+	}
+	public void setUniv(Universite univ) {
+		this.univ = univ;
+	}
+
+	// toString
+	// TODO supprimer avant mise en production
+	@Override
+	public String toString() {
+		return "Etudiant [prenom=" + prenom + ", age=" + age + ", niveauEtudes=" + niveauEtudes + ", univ=" + univ
+				+ "]";
+	}
+}
+```
+
+**TestAssociationUnidir.java** :  
+```{java, eval=FALSE}
+package fr.lsarribouette.associonsnous;
+
+public class TestAssociationUnidir {
+	public static void main(String[] args) {
+		// un eleve connait son universite, mais pas l'inverse
+		
+		Universite univBordeaux = new Universite("Universite de Bordeaux", "Bordeaux");
+		
+		Etudiant bob = new Etudiant("Bob",univBordeaux);
+		
+		System.out.println(univBordeaux); 	// Universite [nom=Universite de Bordeaux, ville=Bordeaux, 
+											// nbEleves=0]
+		System.out.println(bob);	// Etudiant [prenom=Bob, age=0, niveauEtudes=null, 
+									// univ=Universite [nom=Universite de Bordeaux, ville=Bordeaux, nbEleves=0]]
+	}	
+}
+```
 
 ## Association bidirectionnelle
 
-Définition
+Dans le cas d'une association bidirectionnelle, les classes A et B s'appellent mutuellement, comme attributs. Elles peuvent utiliser leurs attributs croisés : l'association est naviguable dans les deux sens.  
 
-Méthodologie
+> Si les classes A et B ont une association bidirectionnelle, alors A connait B mais B connait aussi A.
 
+Méthodologie : 
+
+    - en amont :
+        - on crée un projet : `MonProjet`
+        - on crée un package : `fr.lsarribouette.monprojet.metier`
+        - on crée deux classes : `MaClasseA.java` et `MaClasseB.java`
+
+    - dans `MaClasseA` :
+        - on ajoute un attribut objet dont le type est `MaClasseB` : `private MaClasseB instanceB;`
+        - on l'implémente dans le constructeur
+        (!) on n'a pas de méthode pour créer `instanceB`
+
+    - dans `MaClasseB` :
+        - on ajoute un attribut objet dont le type est `MaClasseA` : `private MaClasseA instanceA;`
+        - on l'implémente dans le constructeur
+        (!) on n'a pas de méthode pour créer `instanceA`
+    
+    - on décide qu'elle classe va implémenter l'autre (ici disons `MaClasseA`)  
+    *çàd* quand on crée une instance de A, on appelle la fonction qui permet de créer une instance de B et du coup ça me permet de créer mon instance de A
+
+    - dans `MaClasseB` :
+        - on ajoute un getter et un setter pour l'attribut objet `instanceA`
+    
+    - dans `MaClasseA` :
+        - dans le constructeur, on utilise 
+
+> Seule une implémente l'autre dans son constructeur, sinon c'est le serpent qui se mord la queue.  
+*çàd* un seul constructeur avec `this` pour un attribut objet.
+
+Ensuite, on crée pour chacune une méthode qui permet d'ajouter une instance à l'autre :
+
+
+
+
+## Toutes les associations
+
+https://www.javatpoint.com/association-in-java  
+
+https://www.javaguides.net/2018/08/association-in-java-with-example.html : 
+
+ It represents a relationship between two or more objects where all objects have their own life cycle and there is no owner. The name of an association specifies the nature of the relationship between objects.
+Association is a relation between two separate classes which establishes through their Objects. Association can be one-to-one, one-to-many, many-to-one, many-to-many.
+In Object-Oriented programming, an Object communicates to other Objects to use functionality and services provided by that object.
+There are two forms of association
+
+    Composition
+    Aggregation

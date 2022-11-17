@@ -23,10 +23,10 @@ La méthode `main` d'une classe est la première ligne qui s'exécute. C'est à 
 
 Pour bien commencer :
 
-  - Créer un projet : `MonPremierProjet`
-  - Créer un package : `fr.lsarribouette.monpremierprojet`
-  - Créer un fichier : `MaPremiereClasse.java`
-  - Compléter le fichier avec la classe et la méthode `main` :
+  - on crée un projet : `MonPremierProjet`
+  - on crée un package : `fr.lsarribouette.monpremierprojet`
+  - on crée un fichier : `MaPremiereClasse.java`
+  - on complète le fichier avec la classe et la méthode `main` :
   
 ```{java, eval=FALSE}
 package fr.lsarribouette.monpremierprojet.mapremiereclasse
@@ -89,6 +89,7 @@ On accède aux cases d'un tableau avec leurs indices (qui commencent à zéro) :
 > Une case vide d'un tableau prend la valeur par défaut de son type (ex: zéro pour un int).
 
 ## Saisies utilisateur
+
 Méthodologie :
 
   - on utilise le package `Scanner`, qu'il faut importer
@@ -111,6 +112,7 @@ scan.close();
 > Les méthodes `next*()` ne prennent pas en compte le retour à la ligne, sauf `nextLine()`. Si un `nextLine()` suit un  `next*()`, il va prendre en compte son retour à la ligne et ne rien afficher. Pour éviter toute confusion, on fait suivre un `next*()` par un `nextLine()` vide.
 
 ## Conditionnelles
+
 Instruction `if` :
 ```{java, eval=FALSE}
 if (condition booleenne) {

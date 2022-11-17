@@ -1,6 +1,7 @@
 A faire :
 
-    - [ ] html_chapters(split = chapter+section)
+    - [x] html_chapters(split = chapter+section)
+    - [ ] choix je, on, infinif --> on ??
 
 A réfléchir :
 

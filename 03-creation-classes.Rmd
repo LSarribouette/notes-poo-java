@@ -11,12 +11,13 @@
 Méthodologie :
 
   - en amont :
-    - je crée un projet : `MonProjet`
-    - je crée un package : `fr.lsarribouette.monprojet.metier`
-    - je crée un fichier .java qui porte le nom de la classe que je veux créer : `MaClasse.java`
-  - dans le fichier, je commence par indiquer le package dans lequel je me trouve : `package fr.lsarribouette.monprojet.metier`
-  - je définis la signature de ma classe (\@ref(signature-classe)) : `public class MaClasse {}`
-  - Je définis le corps de ma classe entre les accolades (\@ref(body-classe)) : 
+    - on crée un projet : `MonProjet`
+    - on crée un package : `fr.lsarribouette.monprojet.metier`
+    - on crée un fichier .java qui porte le nom de la classe qu'on veux créer : `MaClasse.java`
+
+  - dans le fichier, on commence par indiquer le package dans lequel on se trouve : `package fr.lsarribouette.monprojet.metier`
+  - on définis la signature de ma classe (\@ref(signature-classe)) : `public class MaClasse {}`
+  - on définis le corps de ma classe entre les accolades (\@ref(body-classe)) : 
       - attributs d'instance
       - attributs de classe
       - constantes de classe
