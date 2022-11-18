@@ -18,7 +18,6 @@ public class Etudiant {
 		// this appelle l'instance Etudiant en cours de création
 		// la je go postedetravail : j'enregistre le poste avec this
 		// j'ajoute le setPoste dans mon étudiant
-		
 	}
 	
 	// assesseurs et mutateurs

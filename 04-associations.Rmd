@@ -163,7 +163,7 @@ Méthodologie :
         - on l'implémente dans le constructeur
         (!) on n'a pas de méthode pour créer `instanceA`
     
-    - on décide qu'elle classe va implémenter l'autre (ici disons `MaClasseA`)  
+    - on décide quelle classe va implémenter l'autre (ici disons `MaClasseA`)  
     *çàd* quand on crée une instance de A, on appelle la fonction qui permet de créer une instance de B et du coup ça me permet de créer mon instance de A
 
     - dans `MaClasseB` :

@@ -1,10 +1,25 @@
 # L'héritage {#heritage}
 
-But :
+Objectif :
 
-## Classe parent
+    - mutualiser le code
+    - augmenter la maintenabilité
 
-## Classe enfant
+Définition
+
+## Classes parent et enfant
+
+La **classe parent** doit avoir une visibilité `public`.  
+Les attributs de la classe parent doivent être en visibilité `protected` afin qu'ils soient accessibles aux classes enfants.
+
+Une **classe enfant** ne peux hériter que d'**une seule** classe mère, identifiée dans sa signature avec `extends`.  
+Elle récupère alors tous ses attributs et toutes ses méthodes :
+
+    - pas besoin de répéter les attributs de la classe mère dans la définition de la classe enfant
+    - possible d'ajouter de nouveaux attributs normalement
+    - 
+
+
 
 ## Classe Objet
 
