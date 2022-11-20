@@ -1,2 +1,58 @@
 # Les exceptions
 
+Définition
+
+Exceptions et héritage :
+
+La classe `Throwable` est la superclasse de toutes les erreurs et exceptions.  
+
+> Seuls les objets qui sont des instances de cette classe (ou de ses sous-classes) peuvent utiliser les déclarations `throws`.
+
+Ses deux sous-classes sont `Error` et `Exception` (qui a elle-même une sous-classe `RuntimeException`).
+
+Exemples de méthodes utiles : `getMessage()`, `getCause()` (plus précise), `getStackTrace()`,  	`printStackTrace()`
+
+## Error
+
+Une erreur, de la classe `Error`, est considérée comme grave et irrécupérable et induit l'arrêt du programme.  
+Ex : `OutOfMemoryError`
+
+> Il existe une liste prédéfinie d'erreurs en Java : elles se terminent par `-Error` et ne sont pas cliquables.
+
+Pour corriger une erreur, il faut modifier le code ou le paramétrage de la machine virtuelle java.
+
+## RuntimeException
+
+Une exception non contrôlée, de la classe `RuntimeException`, est une erreur de programmation détectée à l'exécution du code qui induit l'arrêt du programme.  
+Ex : `NullPointerException`, `ArrayIndexOutOfBoundsException`, `ArithmeticException`
+
+> Il existe une liste prédéfinie d'exceptions non contrôlées en Java. Elles se terminent par `-Exception`. Elles sont cliquables, ce qui permet d'aller à la ligne de code concernée.
+
+Pour corriger une exception non contrôlée, il faut modifier le code.
+
+Il est possible de **personnaliser** une exception non contrôlée : on crée une classe qui hérite de `RuntimeException` :  
+`public class monExceptionNonControlee extends RuntimeException {}`
+
+## Exception
+
+Une exception, de la classe `Exception`, est une erreur d'utilisation. Elle offre la possibilité de ne pas arrêter le programme en étant contrôlée, *çàd* en ayant des alternatives définies en cas de situations prévues.  
+Ex : `SQLException`
+
+> Il existe une liste prédéfinie d'exceptions contrôlées en Java. Elles se terminent par `-Exception`. Elles sont cliquables, ce qui permet d'aller à la ligne de code concernée.
+
+Pour corriger une exception contrôlée, il faut proposer des alternatives (comme "saisir à nouveau") sur le modèle de **levée d'exception > traitement ou propagation > traitement**.  
+Ce qui correspond en Java :  
+`throw new exception` > `try...catch` ou `throws` > `try...catch`
+
+> Il est possible de propager plusieurs fois une exception, mais il faut obligatoirement la traiter à un moment.
+
+Il est possible de **personnaliser** une exception contrôlée : on crée une classe qui hérite de `Exception` :  
+`public class monExceptionControlee extends Exception {}`
+
+## Créer une exception
+
+## Lever une exception
+
+## Propager une exception
+
+## Traiter une exception
