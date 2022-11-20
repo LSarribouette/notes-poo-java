@@ -1,6 +1,24 @@
 # Les énumérations
 
-Exemple simple
+Une énumération est une classe spécifique qui hérite implicitement de la classe `Enum` et qui est définie par `enum` : `public enum MonEnumeration {}`.
 
-Définition
+Chaque élément d'une énumération est une **instance** de cette classe : un élément est indiqué en majuscules.  
+Aucune autre instance ne peut être créée !
 
+> La liste des instances d'une énumération est définie à la création de la classe et ne peut être modifiée dans le programme.  
+On peut faire l'analogie avec une constante.
+
+Il est possible d'ajouter des attributs et des méthodes normalement.  
+
+Par contre, le constructeur est **privé** : il ne doit pas être accessible à l'extérieur, on crée les instances depuis l'intérieur de la classe.
+
+> Les énumérations sont utiles quand on sait que la classe a un nombre fini de possibilités et que l'on ne veut pas en rajouter : jours de la semaine, mois de l'année, couleurs d'un feu de circulation,...
+
+Exemple simple :
+
+```{java, eval=FALSE}
+public enum Jours {
+  LUNDI, MARDI, MERCREDI, JEUDI, VENDREDI, SAMEDI, DIMANCHE
+  // à compléter avec constructeur sans param, surcharge de constructeur, attributs et methodes
+}
+```
