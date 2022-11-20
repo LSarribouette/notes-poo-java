@@ -16,7 +16,22 @@ Déclaration, affectation, initialisation, instanciation,....
 
 Différence entre un argument et un paramètre (https://www.developpement-informatique.com/article/248/methodes-et-surcharge-des-methodes-en-java)
 
+Héritage : généralisation, spécialisation
+
 # Annexe C
+
+Bonnes pratiques
+
+Principes : 
+
+  - ACID  
+  - DRY  
+  - Encapsulation 
+  - Visibilité  
+
+Maintenabilité : toute ligne duppliquée doit être mise en commun
+
+# Annexe D
 
 design patterns : factory, singleton, observer, 
 

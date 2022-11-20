@@ -1,12 +1,6 @@
-# La création de classes
+# La création de classes {#creation-classe}
 
-*Rappels* : 
-
-  - une classe est définie dans un fichier du même nom
-  - le nom de la classe est en UpperCamelCase
-  - elle est définie au sein d'un package
-
-## Créer une classe
+*Rappels* : Une classe est définie dans un fichier du même nom. Son nom est en UpperCamelCase. Elle est définie au sein d'un package.
 
 Méthodologie :
 
@@ -27,6 +21,8 @@ Méthodologie :
       - assesseurs et mutateurs
 
 > Par convention, on définit le corps d'une classe dans cet ordre.
+
+## Exemple simple
 
 ```{java, eval=FALSE}
 package fr.lsarribouette.pleindechats;
@@ -111,7 +107,7 @@ public class Chat {
 }
 ```
 
-### Signature d'une classe {#signature-classe}
+## Signature d'une classe {#signature-classe}
 
 La signature d'une classe est composée de :
 
@@ -120,11 +116,11 @@ La signature d'une classe est composée de :
   - son nom
   - une paire d'accolades où se trouve le corps de la classe (*body*)
 
-### Corps d'une classe {#body-classe}
+## Corps d'une classe {#body-classe}
 
 Une classe est définie par divers éléments.
 
-#### Attributs
+### Attributs
 
 Les attributs sont des variables à l'intérieur d'une classe, avec une visibilité privée (ou protégée en cas d'héritage (\@ref(heritage)).  
 Les **attributs d'instance** sont des variables personnalisables pour chaque instance : `private type attributInstance;`  
@@ -136,7 +132,7 @@ Une constante est un attribut non-modifiable de classe, défini avec `final` et 
 
 Un attribut est appelé avec `monInstance.unAttribut`.
 
-#### Constructeurs
+### Constructeurs
 
 Un constructeur est une méthode particulière : elle porte obligatoirement le nom de la classe et permet de créer des instances de cette classe (*çàd* alloue la mémoire nécessaire et initialise une instance).  
 Sa visibilité est généralement publique afin d'être accessible à l'extérieur de la classe.
@@ -158,7 +154,7 @@ Dans le *body*, on utilise `this(liste des parametres geres dans l'autre constru
 
 > Par convention, on ordonne les constructeurs du moins surchargé au plus surchargé (*çàd* par ordre croissant de paramètres).
 
-#### Méthodes définies dans une classe
+### Méthodes définies dans une classe
 
 Une **méthode d'instance** est définie au sein de la classe, avec une visibilité publique afin d'être accessible à l'extérieur : `private {type|void} methInstance(parametres potentiels) {body}`  
 Dans le *body*, elle utilise `this.attribut` ou `this.methodeDansMaClasse()` pour accèder à un élément d'instance.  
@@ -170,7 +166,7 @@ Une **méthode de classe** est définie au sein de la classe grâce à `static`,
 Elle ne dépend pas d'une instance particulière et accède donc uniquement aux attributs de classe (pas de `this`).
 Elle peut faire appel à des méthodes extérieures à la classe, qu'il faut importer.
 
-#### Assesseurs et mutateurs
+### Assesseurs et mutateurs
 
 D'après le principe d'encapsulation (\@ref-visibilite-encapsulation)), les attributs sont protégés à l'intérieur de leur classe.  
 Les assesseurs (*setters*) et mutateurs (*getters*) sont des méthodes publiques standardisées qui permettent d'accéder à certains attributs depuis l'extérieur, avec des contrôles.

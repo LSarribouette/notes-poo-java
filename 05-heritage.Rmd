@@ -2,26 +2,100 @@
 
 Objectif :
 
-    - mutualiser le code
-    - augmenter la maintenabilité
+  - mutualiser le code
+  - augmenter la maintenabilité
 
-Définition
+L'héritage est le mécanisme qui permet à une classe d'hériter d'éléments d'une autre classe (attributs et méthodes).  
+
+Question à se poser : "Est-ce que A est un cas particulier de B ?"  
+Si oui, alors A peut hériter de B.
+
+> On ne peut hériter que d'une seule classe, mais la hiérarchie autorise l'héritage *par ricochet* :  
+une classe A, qui hérite d'une classe B, qui elle-même hérite d'une classe C, héritera des éléments de B et C.
+
+> La classe enfant est également appelée "sous-classe", la classe parent "superclasse".
+
+## Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```
 
 ## Classes parent et enfant
 
 La **classe parent** doit avoir une visibilité `public`.  
 Les attributs de la classe parent doivent être en visibilité `protected` afin qu'ils soient accessibles aux classes enfants.
 
-Une **classe enfant** ne peux hériter que d'**une seule** classe mère, identifiée dans sa signature avec `extends`.  
-Elle récupère alors tous ses attributs et toutes ses méthodes :
+Une **classe enfant** ne peut hériter que d'**une seule** classe mère, identifiée dans sa signature avec `extends` :  
+`public class maClasseEnfant extends uneSeuleClasseMere {}`  
 
-    - pas besoin de répéter les attributs de la classe mère dans la définition de la classe enfant
-    - possible d'ajouter de nouveaux attributs normalement
-    - 
+Elle récupère alors tous les *attributs* du parent :
 
+  - pas besoin de répéter les attributs de la classe mère dans la définition de la classe enfant
+  - possible d'ajouter de nouveaux attributs normalement
 
+Le *constructeur* de la classe enfant peut venir compléter le constructeur parent :
 
-## Classe Objet
+  - on répète dans la signature tous les paramètres nécessaires
+  - on appelle le constructeur parent avec en première ligne`super(liste des parametres deja decrits dans le parent);`
+  - on complète le constructeur avec les autres paramètres normalement : `this.param=...`
 
-## Transtypage
+La classe enfant récupère également toutes les *méthodes* du parent, qui peuvent être utilisées telles quelles ou bien substituées.  
 
+La **substitution** d'une méthode se fait :
+
+  - en indiquant `@Override` sur la ligne avant la signature de la méthode à substituer
+  - en définissant la méthode comme on le souhaite mais avec exactement le **même nom**
+  - il est possible de se baser sur la méthode mère grâce à `super.meth()` puis de la compléter 
+  
+> Lors de l'appel d'une méthode avec une instance ou une classe enfant, l'appel remonte l'arbre généalogique : si elle est définie dans la classe enfant, c'est celle-ci qui sera utilisée, sinon celle de la classe parent, sinon celle de la classe encore au dessus etc, jusqu'à la trouver.
+
+## Classe Objet et méthode `toString()`
+
+Toute classe hérite implicitement de la classe `Object`.
+
+Dans toute classe, il est possible d'appeler (et de substituer) les méthodes publiques et protégées de la classe `Object`. 
+
+Ces méthodes sont multiples. On a déjà vu le cas de `toString()` :
+
+  - par défaut, un appel à `toString()` retourne l'adresse mémoire de l'instance
+  - si elle est substituée dans une classe, elle est utilisée pour retourner une description des instances (aide au déboguage)
+
+> Si elle a déjà été substituée dans la classe parent, on peut la compléter dans la classe enfant avec `super.toString()` :
+
+```{java, eval=FALSE}
+@Override
+  public String toString() {
+      return super.toString() + "Classe [attribut1=" + attribut1 + ", attribut2=" + attribut2 + ", attribut3=" + attribut3 + "]";
+  }
+```
+
+## Transtypage et polymorphisme
+
+Définition
+
+Le transtypage s'applique de différentes manières : 
+  
+  1. Une instance enfant peut être considérée en tant qu'instance d'ancêtre *sans mot-clé* : `afficherAnimal(FelixLeChat);`
+  
+  2. Une instance de classe enfant peut être référencée (stockée) par une variable de type parent : `Chien filou = new Animal(...);`  
+  C'est le **transtypage ascendant**, qui est lié au principe de **généralisation**.
+  
+> (!) L'inverse n'est pas possible :  `Animal a = new Chien(...)`
+
+  3. Avec un *cast*, une instance stockée par une variable de type parent peut à nouveau être référencée par une variable de son type réel d'instance : `(Chien) filou.methodeSpecifiqueClasseChien();`  
+  C'est le **transtypage descendant**, qui est lié au principe de **spécialisation**. 
+
+> Il est possible de tester le type d'instance avec l'expression booléenne `(filou instanceof Chien)`.  
+Très utile si l'on souhaite par exemple afficher un tableau de chats et de chiens :  
+>
+>  - ils héritent tous de la classe Animal : `Animal[]`
+>  - en testant le type d'instance d'une case d'index `i`, on peut appeler des méthodes spécifiques à chaque instance :
+  
+```{java, eval=FALSE}
+if (Animal[i] instanceof Chat) {
+  Animal[i].methodeSpecifiqueClasseChat();
+}
+```
+
+Le **polymorphisme** est la capacité à choisir dynamiquement la méthode qui correspond au type réel de l'objet.

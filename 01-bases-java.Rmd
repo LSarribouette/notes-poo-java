@@ -1,3 +1,5 @@
+# (PART) JAVA {-} 
+
 # Les bases de java
 
 Cette partie comporte principalement des rappels de l'initiation à Java. Les notions sont donc peu détaillées.

@@ -24,6 +24,13 @@ Méthodologie :
 
 Exemple d'association unidirectionnelle où une classe Etudiant a un attribut objet Université :
 
+
+### Exemple simple
+
+Association unidirectionnelle entre un étudiant et son université :  
+
+Projet en trois fichiers (*Universite.java*, *Etudiant.java* et *TestAssociationUnidir.java*) où la méthodologie expliquée au chapitre \@ref(creation-classe) est appliquée.
+
 **Universite.java** :  
 ```{java, eval=FALSE}
 package fr.lsarribouette.associonsnous;
@@ -175,10 +182,13 @@ Méthodologie :
 > Seule une implémente l'autre dans son constructeur, sinon c'est le serpent qui se mord la queue.  
 *çàd* un seul constructeur avec `this` pour un attribut objet.
 
-Ensuite, on crée pour chacune une méthode qui permet d'ajouter une instance à l'autre :
 
 
+### Exemple simple
 
+```{java, eval=FALSE}
+// à compléter
+```
 
 ## Toutes les associations
 
