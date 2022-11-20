@@ -1,3 +1,5 @@
+# (PART) JAVA {-} 
+
 # Les bases de java
 
 Cette partie comporte principalement des rappels de l'initiation à Java. Les notions sont donc peu détaillées.
@@ -6,7 +8,7 @@ Cette partie comporte principalement des rappels de l'initiation à Java. Les no
 
 Java est un langage qui doit être compilé puis exécuté.  
 
-> Plus de détails sur l'installation de Java et les IDE disponible (\@ref(annexe))
+> Plus de détails sur l'installation de Java et les IDE disponibles (\@ref(annexe))
 
 On travaille dans un projet Java, à l'intérieur duquel on organise les fichiers dans des packages.  
 Un **package** est représenté par des dossiers successifs situés dans le *source folder* ou *src*.  
@@ -23,10 +25,10 @@ La méthode `main` d'une classe est la première ligne qui s'exécute. C'est à 
 
 Pour bien commencer :
 
-  - Créer un projet : `MonPremierProjet`
-  - Créer un package : `fr.lsarribouette.monpremierprojet`
-  - Créer un fichier : `MaPremiereClasse.java`
-  - Compléter le fichier avec la classe et la méthode `main` :
+  - on crée un projet : `MonPremierProjet`
+  - on crée un package : `fr.lsarribouette.monpremierprojet`
+  - on crée un fichier : `MaPremiereClasse.java`
+  - on complète le fichier avec la classe et la méthode `main` :
   
 ```{java, eval=FALSE}
 package fr.lsarribouette.monpremierprojet.mapremiereclasse
@@ -89,6 +91,7 @@ On accède aux cases d'un tableau avec leurs indices (qui commencent à zéro) :
 > Une case vide d'un tableau prend la valeur par défaut de son type (ex: zéro pour un int).
 
 ## Saisies utilisateur
+
 Méthodologie :
 
   - on utilise le package `Scanner`, qu'il faut importer
@@ -111,6 +114,7 @@ scan.close();
 > Les méthodes `next*()` ne prennent pas en compte le retour à la ligne, sauf `nextLine()`. Si un `nextLine()` suit un  `next*()`, il va prendre en compte son retour à la ligne et ne rien afficher. Pour éviter toute confusion, on fait suivre un `next*()` par un `nextLine()` vide.
 
 ## Conditionnelles
+
 Instruction `if` :
 ```{java, eval=FALSE}
 if (condition booleenne) {
@@ -205,20 +209,23 @@ type nomFonction(parametres potentiels) {
 
 > La variable retournée doit être du même type qu'annoncé dans le signature de la fonction.
 
-## Visiblité et encapsulation
+## Visiblité et encapsulation {#visibilite-encapsulation}
 
 La visibilité représente l'accessibilité d'un objet (classes, variables, attributs, méthodes...) :
 
   - par défaut : limitée au package
-  - public : sans limite (n'importe où)
-  - private : limitée à la classe
-  - protected : limitée à la classe et ses héritières
+  - `public` : sans limite (n'importe où)
+  - `private` : limitée à la classe
+  - `protected` : limitée à la classe et ses héritières
 
 L'encapsulation détermine la portée d'une variable : elle est plus ou accessible selon le bloc dans lequel elle est déclarée.  
 Par exemple :   
 Une variable déclarée dans une boucle sera uniquement accessible à l'intérieur de celle-ci.
 Une variable déclarée dans une fonction sera uniquement accessible à l'intérieur de celle-ci.  
 Une variable déclarée dans le `main`, quant à elle, sera accessible aux méthodes utilisées dans le `main`.
+
+--> **Une classe est responsable de ses données.**  
+Les variables déclarées dans une classe (*attributs*) ne sont donc pas accessibles à l'extérieur de celle-ci, pour les protéger. Des méthodes spécifiques sont définies dans la classe pour accéder ou modifier ces variables depuis l'extérieur : appelées des assesseurs et mutateurs (*getters* et *setters*), elles permettent de sélectionner les variables auxquelles on donne accès et d'effectuer des contrôles.  
 
 ## Les exceptions
 
@@ -365,6 +372,26 @@ public class Lecture {
 
 > Alternative : déclarer les FileWriter, FileInputStream et Scanner dans le `try` : `try(FileWriter f = new FileWriter('./valeurs.txt') {...}`
 
+
+## Types de données
+
+Les données sont catégorisées en deux grands types : 
+
+  - type valeur = primitif
+  - type référence = object, complexe
+
+Il existe 8 types de données primitives : `boolean`, `byte`, `char`, `float`, `int`, `long`, `short`, `double`.  
+Lors du passage en paramètre d'une primitive, elle est copiée et c'est cette copie qui est modifiée par la suite.  
+Lors du retour par une fonction d'une primitive, c'est sa valeur qui est retournée. 
+
+Il existe de très nombreux types de données référence : `String`, tableaux(`[]`), collections (`ArrayList`), instances d'objet...  
+Lors du passage en paramètre d'un objet, son adresse en mémoire est copiée et c'est bien l'original qui est modifié par la suite.  
+Lors du retour par une fonction d'un objet, c'est son adresse en mémoire qui est retournée. 
+
+> Plus de détails sur les types en Java [ici](https://www.geeksforgeeks.org/data-types-in-java/)
+
+> Plus de détails sur l'allocation de la mémoire [ici](https://fr.ichlese.at/what-is-memory-allocation-java)
+
 ## Conversions
 
 On a vu trois façons de convertir une variable :
@@ -372,8 +399,6 @@ On a vu trois façons de convertir une variable :
   - Passer d'un type primitif à un autre (\@ref(conversion-prim-prim))
   - Passer d'un type primitif à son équivalent objet, et réciproquement (\@ref(conversion-prim-obj))
   - Passer d'un type objet à un autre (\@ref(conversion-obj-obj))
-
-> Plus de détails sur les types en Java [ici](https://www.geeksforgeeks.org/data-types-in-java/)
 
 > Plus de détails sur les conversions en Java [ici](https://www.ukonline.be/cours/java/apprendre-java/chapitre2-4)
 

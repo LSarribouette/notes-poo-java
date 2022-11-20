@@ -1,2 +1,288 @@
-# La création de classes
+# La création de classes {#creation-classe}
 
+*Rappels* : Une classe est définie dans un fichier du même nom. Son nom est en UpperCamelCase. Elle est définie au sein d'un package.
+
+Méthodologie :
+
+  - en amont :
+    - on crée un projet : `MonProjet`
+    - on crée un package : `fr.lsarribouette.monprojet.metier`
+    - on crée un fichier .java qui porte le nom de la classe qu'on veux créer : `MaClasse.java`
+
+  - dans le fichier, on commence par indiquer le package dans lequel on se trouve : `package fr.lsarribouette.monprojet.metier`
+  - on définis la signature de ma classe (\@ref(signature-classe)) : `public class MaClasse {}`
+  - on définis le corps de ma classe entre les accolades (\@ref(body-classe)) : 
+      - attributs d'instance
+      - attributs de classe
+      - constantes de classe
+      - constructeurs
+      - méthodes d'instance
+      - méthodes de classe
+      - assesseurs et mutateurs
+
+> Par convention, on définit le corps d'une classe dans cet ordre.
+
+## Exemple simple
+
+```{java, eval=FALSE}
+package fr.lsarribouette.pleindechats;
+
+public class Chat {
+	// attributs d'instance
+	private String prenom;
+	private String couleur;
+	private double poids;
+	private int age;
+	
+	// attributs de classe
+	private static int nbChats = 0;
+	
+	// constantes de classe
+	private static final int nbPattes = 4;
+	
+	// constructeurs
+	public Chat(String prenom, String couleur) {
+		this.prenom = prenom;
+		this.couleur = couleur;
+		
+		nbChats++; // incrémente le compteur d'instances
+	}
+	
+	public Chat(String prenom, String couleur, double poids, int age) {
+		this(prenom,couleur);
+		this.poids = poids;
+		this.age = age;
+		
+		nbChats++; // incrémente le compteur d'instances
+	}
+	
+	// methodes d'instance
+	public void dormir() {
+		System.out.println(this.prenom + " dort encore...");
+	}
+	
+	public void miauler() {
+		System.out.println(this.prenom + " a dit miaou.");
+	}
+	
+	// methodes de classe
+	public static void compterMesChats() {
+		System.out.println("J'ai " + nbChats + " chats.");
+	}
+	
+	// assesseurs et mutateurs
+	// choix : 	je veux pouvoir recuperer tous les attributs existant
+	//			par contre, je ne veux pouvoir modifier que le poids et l'age 
+	public String getPrenom() {
+		return prenom;
+	}
+	public String getCouleur() {
+		return couleur;
+	}
+	public double getPoids() {
+		return poids;
+	}
+	public int getAge() {
+		return age;
+	}
+	public static int getNbChats() {
+		return nbChats;
+	}
+	public static int getNbpattes() {
+		return nbPattes;
+	}
+	public void setPoids(double poids) {
+		this.poids = poids;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	// toString
+	// TODO supprimer avant mise en production
+	@Override
+	public String toString() {
+		return "Chat [prenom=" + prenom + ", couleur=" + couleur + ", poids=" + poids + ", age=" + age + "]";
+	}
+}
+```
+
+## Signature d'une classe {#signature-classe}
+
+La signature d'une classe est composée de :
+
+  - sa visibilité : par convention `public`, *çàd* accessible de n'importe où
+  - son type `class`
+  - son nom
+  - une paire d'accolades où se trouve le corps de la classe (*body*)
+
+## Corps d'une classe {#body-classe}
+
+Une classe est définie par divers éléments.
+
+### Attributs
+
+Les attributs sont des variables à l'intérieur d'une classe, avec une visibilité privée (ou protégée en cas d'héritage (\@ref(heritage)).  
+Les **attributs d'instance** sont des variables personnalisables pour chaque instance : `private type attributInstance;`  
+Les **attributs de classe** sont des variables identiques pour toutes les instances, définies avec `static` : `private static type attributClasse;`
+
+> Un attribut de classe peut notamment être utilisé pour compter les instances.
+
+Une constante est un attribut non-modifiable de classe, défini avec `final` et forcément à l'échelle de la classe avec `static` : `private static final type constanteClasse;`
+
+Un attribut est appelé avec `monInstance.unAttribut`.
+
+### Constructeurs
+
+Un constructeur est une méthode particulière : elle porte obligatoirement le nom de la classe et permet de créer des instances de cette classe (*çàd* alloue la mémoire nécessaire et initialise une instance).  
+Sa visibilité est généralement publique afin d'être accessible à l'extérieur de la classe.
+
+> Toute classe possède un constructeur publique par défaut, qui ne prend aucun paramètre. L'instance créée est vide, ses attributs ont leur valeur par défaut (souvent *null* ou zéro).  
+Lorsqu'un constructeur est défini dans la classe, il remplace celui par défaut.
+
+Un constructeur est **paramétrable** : `public MaClasse(type attribut1, type attribut2) {body}`  
+On sélectionne parmi les attributs, ceux que l'on veut utiliser pour initialiser une instance. Les attributs non-initialisés auront leur valeur par défaut.
+
+Dans le *body*, le constructeur initialise les attributs de l'instance à créer avec les paramètres grâce à `this.attribut = parametre`.  
+Il peut faire appel à des méthodes grâce à `this.methode()`.
+
+> Par convention, on les nomme de la même façon pour avoir `this.prenom = prenom`.
+
+La surcharge (\@ref(surcharge)) de constructeurs est courante, afin d'avoir différentes manières de créer une instance.  
+Dans la signature du constructeur, on répète tous les paramètres concernés.  
+Dans le *body*, on utilise `this(liste des parametres geres dans l'autre constructeur)` **en première instruction**. Puis on complète avec les paramètres ajoutés (`this.attribut = parametre`).
+
+> Par convention, on ordonne les constructeurs du moins surchargé au plus surchargé (*çàd* par ordre croissant de paramètres).
+
+### Méthodes définies dans une classe
+
+Une **méthode d'instance** est définie au sein de la classe, avec une visibilité publique afin d'être accessible à l'extérieur : `private {type|void} methInstance(parametres potentiels) {body}`  
+Dans le *body*, elle utilise `this.attribut` ou `this.methodeDansMaClasse()` pour accèder à un élément d'instance.  
+Elle peut faire appel à des méthodes extérieures à la classe, qu'il faut importer.
+
+> Ecrire explicitement `this` n'est bien souvent pas nécessaire mais ajoute de la lisibilité au code.
+
+Une **méthode de classe** est définie au sein de la classe grâce à `static`, avec une visibilité publique afin d'être accessible à l'extérieur : `private static {type|void} methClasse(parametres potentiels) {body}`  
+Elle ne dépend pas d'une instance particulière et accède donc uniquement aux attributs de classe (pas de `this`).
+Elle peut faire appel à des méthodes extérieures à la classe, qu'il faut importer.
+
+### Assesseurs et mutateurs
+
+D'après le principe d'encapsulation (\@ref-visibilite-encapsulation)), les attributs sont protégés à l'intérieur de leur classe.  
+Les assesseurs (*setters*) et mutateurs (*getters*) sont des méthodes publiques standardisées qui permettent d'accéder à certains attributs depuis l'extérieur, avec des contrôles.
+
+Un *getter* donne un accès en lecture sur un attribut : il se nomme toujours `getAttribut`, il ne prend pas de paramètre, il renvoie une variable du type de l'attribut appelé et ne contient **que** ce retour dans le *body* : 
+
+```{java, eval=FALSE}
+  public type getAtttribut() {
+    return attributDuBonType;
+  }
+```
+
+Un *setter* donne un accès en écriture sur un attribut : il  se nomme toujours `setAttribut`, il prend un seul paramètre qui est la nouvelle valeur à attribuer, il ne renvoie rien et ne contient **que** la ligne d'affectation dans le *body* :
+
+```{java, eval=FALSE}
+  public void setAttribut(type monAttribut) {
+    this.monAttribut = monAttribut;
+  }
+```
+
+> Si l'on applique à la lettre le principe d'encapsulation, il est conseillé d'appeler les setters dans le constructeur -puisque c'est une méthode publique- et de laisser le setter utiliser le `this`.
+
+Pour les attributs et les constantes de classe, qui sont `static`, les *setters* et *getters* doivent également être `static`, ils utilisent alors le nom de la classe au lieu du `this`. 
+
+## toString : pour déboguer
+
+Toutes les classes héritent d'une méthode `toString()` prédéfinie : elle renvoie l'adresse en mémoire de l'objet.
+
+Il est souvent intéressant de pouvoir afficher dans la console une description des attributs principaux d'un objet, notamment pour déboguer.  
+
+Pour cela, on redéfinit une méthode `toString()` spécifique à la classe qui va se substituer à celle par défaut (notion détaillée avec l'héritage (\@ref(heritage))).  
+La méthode est standardisée : elle est publique, elle retourne une `String`, elle se nomme évidemment `toString()` et ne contient que le retour souhaité dans son *body*.  
+On précise que la méthode se substitue à une autre avec `@Override`.  
+
+```{java, eval=FALSE}
+  @Override
+	public String toString() {
+		return "Classe [attribut1=" + attribut1 + ", attribut2=" + attribut2 + ", attribut3=" + attribut3 + "]";
+	}
+```
+
+Cette méthode est très particulière, elle est appelée par défaut lorsque l'on appelle une instance : `System.out.println(monInstance);` donnera exactement la même sortie que `System.out.println(monInstance.toString);`
+
+> Il est conseillé de laisser un commentaire (`// TODO supprimer avant mise en production`) pour penser à supprimer ces méthodes lors de la mise en production : la console doit être laissée libre pour les équipes de déploiement.
+
+## Accéder aux éléments d'une classe
+
+Exemple d'un fichier de test pour la classe Chat :
+
+```{java, eval=FALSE}
+package fr.lsarribouette.pleindechats;
+
+public class TestChat {
+	public static void main(String[] args) {
+		//Chat monChat1 = new Chat(); // constructeur public, substitue par les constructeurs definis dans la classe
+		Chat monChat2 = new Chat("Fripouille","roux");
+		Chat monChat3 = new Chat("Biscote", "gris", 4.5, 7);
+		
+		//System.out.println(monChat1); // Chat [prenom=null, couleur=null, poids=0.0, age=0]
+		System.out.println(monChat2); // Chat [prenom=Fripouille, couleur=roux, poids=0.0, age=0]
+		System.out.println(monChat3); // Chat [prenom=Biscote, couleur=gris, poids=4.5, age=7]
+		
+		monChat2.dormir(); // Fripouille dort encore...
+		monChat2.miauler(); // Fripouille a dit miaou.
+		monChat3.dormir(); // Biscote dort encore...
+		
+		Chat.compterMesChats(); // J'ai 3 chats.
+		
+		System.out.println(monChat3.getCouleur()); // gris
+		
+		// Je complete les informations sur Fripouille
+		monChat2.setPoids(3);
+		monChat2.setAge(2);
+		
+		System.out.println(monChat2); // Chat [prenom=Fripouille, couleur=roux, poids=3.0, age=2]
+		System.out.println(monChat2.toString()); // Chat [prenom=Fripouille, couleur=roux, poids=3.0, age=2]
+		
+	}
+}
+```
+
+## Diagramme de classe
+
+!! HORS-PROGRAMME !!
+
+UML = *unified modeling langage*  
+    = le language de modélisation unifié qui possède un ensemble de diagrammes pour unifier la lecture de la conception informatique
+    = un outil qui aide à la conception logicielle et à la communication entre concepteurs et développeurs, mais aussi entre développeurs
+
+Le diagramme de classe est le diagramme UML qui décrit clairement la structure des classes, avec leurs attributs, leurs méthodes et les relations entre les classes.
+
+Une classe en soi est représentée par un rectangle à trois sections :
+
+  - Section supérieure : contient le nom de la classe (toujours nécessaire)
+  - Section intermédiaire : contient les attributs de la classe
+  - Section inférieure : contient les opérations de la classe (méthodes), affichées sous forme de liste, les paramètres indiqués entre parenthèses, le type de retour indiqué après les deux-points
+
+Indicateurs de visibilité :
+
+  - Public (+)
+  - Privé (-)
+  - Protégé (#)
+  - Paquetage (~)
+  - Dérivé (/)
+  - Statique (souligné)
+
+Interactions (liste non-exhaustive): 
+
+  - Héritage (ou généralisation) : ligne de connexion droite avec une pointe de flèche fermée orientée vers la classe parent
+  - Association unidirectionnelle : ligne de connexion droite avec une pointe de flèche ouverte allant de la classe « sachante » vers la classe « connue »
+    - sous la ligne, le nom de l'attribut de la classe « sachante » est indiqué du côté de la classe « connue »
+    - sur la ligne, la valeur de multiplicité est indiquée également du côté de la classe « connue »
+  - Association bidirectionnelle : ligne droite entre deux classes avec les noms de l'attribut et leur valeur de multiplicité
+  - Composition : ligne de connexion droite avec une pointe en losange noir orienté vers la classe qui est « composée »
+  - Aggrégation : ligne de connexion droite avec une pointe en losange noir orienté vers la classe qui est « agrégée »
+
+> La multiplicité est de type `m...n` et précise la contrainte sur l'attribut qui fait le lien d'une classe à l'autre : obligatoire (`1`), facultatif zéro ou un (`0..1`), facultatif zéro ou plus (`*`), etc. 
+
+> Plus de détails [ici](https://www.lucidchart.com/pages/fr/diagramme-de-classes-uml)

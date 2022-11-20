@@ -1,2 +1,124 @@
 # Les classes asbtraites, les méthodes asbtraites et les interfaces
 
+Définition abstraction ?
+
+## Classe abstraite
+
+Une classe abstraite est une classe qui ne peut pas être instanciée.
+
+> Cela signifie qu'on ne peut pas utiliser directement son constructeur pour créer une instance. Du coup, une classe abstraite n'est utile que si elle a des classes héritières.
+
+Elle est définie avec `abstract` dans sa signature : `public abstract class maClasseAbstraite {}`
+
+Elle contient des attributs à l'instar des classes concrètes.
+
+Le constructeur est mis en place normalement puis il sera complété dans les classes enfant (qui appelleront `super(liste de parametres du parent)`).
+
+Elle contient des méthodes **concrètes**, *çàd* définies dans la classe : elles seront applicables aux classes enfant et pourront être substituée si besoin (`@Override`).
+
+Elle contient des méthodes **abstraites** *(définies dans la section \@ref(methode-abstraite) suivante)* : simplement définies par leur signature, elles seront concrètement implémentées dans les classes enfant.
+
+> A noter : une classe concrète ne peut pas contenir des méthodes abstraites.
+
+> Plus de détails sur les classes abstraites et leurs constructeurs [ici](https://www.ipgirl.com/1735/une-classe-abstraite-peut-elle-avoir-un-constructeur.html)
+
+### Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```
+
+## Méthode abstraite {#methode-abstraite}
+
+Une méthode abstraite est une méthode qui n'est pas implémentée.
+
+Elle est décrite uniquement par sa signature avec `abstract`, souvent avec une visibilité public comme pour les méthodes concrètes :  
+`public abstract type|void maMethodeAbstraite(potentiels parametres);`
+
+> La méthode abstraite se termine obligatoirement par un point-virgule `;` et ne possède pas d'accolades puisque son *body* n'est pas décrit ici.
+
+> Indiquer `abstract` est optionnel puisque c'est sous-entendu par l'absence de *body*.
+
+Elle est décrite dans une classe abstraite ou une interface (décrite dans la section \@ref(interface) suivante).  
+
+Puis elle est implémentée réellement dans une classe concrète qui en hérite par sa classe mère ou par une interface qu'elle implémente.  
+Si la classe qui en hérite est également abstraite, alors l'obligation d'implémentation est reportée à la prochaine classe enfant concrète.
+
+> L'implémentation d'une méthode abstraite est également une **substitution** (`@Override`).
+
+### Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```
+
+## Interface {#interface}
+
+Une interface est considérée comme un **contrat** imposé aux classes qui l’implémente.
+
+Une interface est un bloc particulier sans attributs, qui implémente uniquement des méthodes abstraites :  
+`public interface MonInterface {}`
+
+> Une interface peut avoir des constantes (décrites avec `final`).
+
+Une classe implémente une interface avec `implements` :  
+`public class MaClasse implements MonInterface {}`
+
+Une classe peut implémenter autant d'interfaces que nécessaire :  
+`public class MaClasse implements UneInterface, UneAutreInterface, UneTroisiemePourLaRoute {}`
+
+> Le mécanisme des interfaces est complémentaire à l'héritage : comme on ne peut hériter que d'une seule classe, il contourne ce problème et permet l'*héritage multiple*.
+
+### Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```
+
+## Bilan
+
+```{r cache=TRUE, echo=FALSE, fig.cap='(ref:tab-abstraction-definition)', message=FALSE, warning=FALSE}
+
+tab <- dplyr::bind_cols(
+  c("déclaration",
+    "attributs",
+    "constantes",
+    "méthodes concrètes",
+    "méthodes abstraites"), 
+  c("class",
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2718")),
+  c("abstract class",
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2714")),
+  c("interface",
+    knitr::asis_output("\U2718"),
+    knitr::asis_output("\U2714"),
+    knitr::asis_output("\U2718"),
+    knitr::asis_output("\U2714"))
+  ) 
+tab %>% setNames(c("Définition", "Classe concrète", "Classe asbstraite", "Interface")) %>% 
+  kableExtra::kbl("html", caption = "Comparaison de la définition de classes concrètes, abstraites et d'interface") %>% 
+  kable_styling(full_width = FALSE)
+
+```
+
+```{r cache=TRUE, echo=FALSE, fig.cap='(ref:tab-abstraction-definition)', message=FALSE, warning=FALSE}
+
+tab <- dplyr::bind_cols(
+  c("déclaration",
+    "minimum",
+    "maximum"),
+  c("extends", "0", "1"),
+  c("extends", "0", "1"),
+  c("implements", "0", knitr::asis_output("\U221E"))
+)
+
+tab %>% setNames(c("Utilisation", "Classe concrète", "Classe asbstraite", "Interface")) %>% 
+  kableExtra::kbl("html", caption = "Comparaison de l'utilisation de classes concrètes, abstraites et d'interface") %>% 
+  kable_styling(full_width = FALSE)
+```
