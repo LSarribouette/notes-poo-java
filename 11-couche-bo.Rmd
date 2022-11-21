@@ -1,0 +1,7 @@
+# Couche BO {#bo}
+
+La couche _**Business Object**_ fait partie de la couche métier et correspond au **modèle de données** de la couche métier, *çàd* qu'elle implémente les classes et les liens entre les classes du programme.
+
+
+
+> UML : la couche BO est décrite avec un diagramme de classe d'analyse métier

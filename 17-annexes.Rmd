@@ -3,12 +3,27 @@
 # Annexe A
 
 Conventions : nommage,...
+
     - projet : en UpperCamelCase
     - package : en minuscules
     - classe : en UpperCamelCase, au singulier ?
     - instance : en UpperCamelCase
     - méthode : lowerCamelCase
 
+Javadoc :
+
+  - utilisation
+  - de l'importance de l'écrire !!
+
+
+IDE : 
+
+  - Client lourd != léger
+  - JRE, JDK,...
+  - JSE, JEE ...
+    - standard != norme qui repose sur SE et permet de faire du web (requêtes http)
+  - IDE : Eclipse ~classique, IntelliJ ~EE, VSCode ~en devenir (+PHPStorm)
+  - JAVA-HOME
 
 # Annexe B
 
