@@ -2,39 +2,22 @@
 
 # Architecture en couches
 
-Problématique avec une seule couche : mélange des éléments graphiques et méthier et de la persistance des données  
---> Maintenance corrective et évolutive difficile  
---> Réutilisation du code impossible  
---> Collaboration compliquée
+Problématique avec une seule couche ?  
+Les éléments graphiques, métier et de persistance des données sont mélangés, ce qui induit :  
+  `r knitr::asis_output("\U2E3A")` une maintenance corrective et évolutive plus difficile,  
+  `r knitr::asis_output("\U2E3A")` l'impossibilité de réutiliser le code,  
+  `r knitr::asis_output("\U2E3A")` une complication du travail collaboratif.
 
-Une solution : les couches logicielles, un ensemble de composants logiciels (ou *couches*) pouvant communiquer entre exécutée
+Une solution a été mise en place grâce aux **couches logicielles**, un ensemble de composants logiciels pouvant communiquer entre eux, où chaque couche a sa propre responsabilité.
 
-Chaque couche a sa propre responsabilité > **cohésion**  
-
-Un lien entre deux couches est appelé **couplage**. Il peut être plus ou moins fort : 
-
-    - un couplage fort indique une dépendance : "la couche A a besoin de la couche B"
-    - un couplage faible indique une utilisation : "la couche A utilise la couche C"
+> Notion de **cohésion**.
 
 Les couches logicielles permettent de créer des composants réutilisables et interchangeables.
 
-On va décrire dans ce cours quatre couches logicielles :
+Un lien entre deux couches est appelé **couplage** : 
 
-    1. la couche **IHM** (*interface home-machine*) (\@ref(ihm)) ~front, échange avec l'utilisateur
-    2. la couche "métier", découpée en deux couches : 
-        - la couche **BLL** (*business logic layer*)  (\@ref(bll)) ~back, modèle de la couche métier (classes et liens entre classes)
-        - la couche **BO** (*business object*) (\@ref(bo)) ~back, règles de gestion métier
-    3. la couche **DAL** (*data access layer*) (\@ref(dal)) ~data, échange avec ma base de données
-
-
-Couplages forts :  
-        IHM --a besoin de--> BLL 
-        DAL --a besoin de--> BLL 
-
-Couplages faibles :
-        IHM --utilise--> BO 
-        BLL --utilise--> BO 
-        DAL --utilise--> BO 
+  - un couplage fort indique une dépendance : "la couche A a besoin de la couche B"
+  - un couplage faible indique une utilisation : "la couche A utilise la couche C"
 
 ## Le modèle d'architecture à trois niveaux
 
@@ -42,22 +25,22 @@ Couplages faibles :
 
 Ce chapitre décrit l'architecture à trois niveaux qui a été l'architecture dominante pour les applications client-serveur pendant des décennies.  
 
-> Il est grandement inspiré de l'article de IBM "Qu'est-ce que l'architecture à trois niveaux", disponible [ici](https://www.ibm.com/fr-fr/cloud/learn/three-tier-architecture)
+> Il est grandement inspiré de l'article de IBM "Qu'est-ce que l'architecture à trois niveaux", disponible [ici](https://www.ibm.com/fr-fr/cloud/learn/three-tier-architecture).
 
 **Attention** à ne pas confondre "niveau" et "couche" :  
 
-    - une « couche » fait référence à une division fonctionnelle du logiciel, 
-    - mais un « niveau » se rapporte à une division fonctionnelle du logiciel qui fonctionne sur une infrastructure distincte des autres divisions.
+  - une « couche » fait référence à une division fonctionnelle du logiciel, 
+  - mais un « niveau » se rapporte à une division fonctionnelle du logiciel qui fonctionne sur une infrastructure distincte des autres divisions.
 
 Aujourd'hui, la plupart des applications à trois niveaux sont destinées à être modernisées, en utilisant des technologies natives cloud, telles que les conteneurs et les microservices, et à migrer vers le cloud.
 
 > Plus de détails sur les choix d'architecture [ici](https://www.ibm.com/cloud/blog/four-architecture-choices-for-application-development)
 
-L'architecture à trois niveaux, qui sépare les applications en trois niveaux de calcul logiques et physiques, est l'architecture logicielle prédominante pour les applications client-serveur traditionnelles.
+L'architecture à trois niveaux sépare les applications en trois niveaux de calcul logiques et physiques :
 
-    1. Niveau Présentation
-    2. Niveau Application
-    3. Niveau Données
+  1. Niveau Présentation
+  2. Niveau Application
+  3. Niveau Données
 
 Le niveau **Présentation** est l'interface utilisateur et la couche de communication de l'application, où l'utilisateur final interagit avec l'application.  
 Sa principale fonction est d'afficher des informations à l'attention de l'utilisateur et d'en collecter de ce dernier.  
@@ -79,10 +62,36 @@ Dans une application à trois niveaux, toutes les communications passent par le 
 
 **Et nos couches logicielles alors ?**
 
-les grandes lignes du développement en couches. Présentation=IHM, Application = BO & BLL, données = DAL + SGBD. Dans les prijets java ça correspond à un package globalement.
+Ce modèle d'architecture présente les grandes lignes du développement en couches : 
 
-    1. couche IHM (*interface home-machine*) (\@ref(ihm)) ~front, échange avec l'utilisateur
-    2. niveau correspondant au "métier", découpé en deux couches : 
-        - couche BLL (*business logic layer*)  (\@ref(bll)) ~back, modèle de la couche métier (classes et liens entre classes)
-        - couche BO (*business object*) (\@ref(bo)) ~back, règles de gestion métier
-    3. DAL (*data access layer*) (\@ref(dal)) ~data, échange avec ma base de données
+  - le niveau Présentation correspond à la couche IHM,
+  - le niveau Application correspond aux couches BO et BLL, 
+  - le niveau Données correspond aux couches DAL et au SGBD (sytème de gestion de base de données). 
+  
+## Couches logicielles
+
+Dans ce cours, quatre couches logicielles sont décrites :
+
+  1. la couche **IHM** (*interface home-machine*) (\@ref(ihm))  
+  Elle gère la partie *front* : les échange avec l'utilisateur.
+  2. la couche "métier", découpée en deux couches : 
+      - la couche **BLL** (*business logic layer*)  (\@ref(bll))  
+      Elle gère le modèle de la couche métier (classes et liens entre classes).
+      - la couche **BO** (*business object*) (\@ref(bo))  
+      Elle gère les règles de gestion métier.
+  3. la couche **DAL** (*data access layer*) (\@ref(dal))  
+  Elle gère la partie *data* : les échanges avec la base de données.
+
+> Dans les projets Java, chaque couche correspond gloablement à un package.
+
+Couplages forts :  
+
+  - IHM ---a besoin de--> BLL  
+  - DAL ---a besoin de--> BLL  
+
+Couplages faibles :
+
+  - IHM ---utilise--> BO  
+  - BLL ---utilise--> BO  
+  - DAL ---utilise--> BO  
+  

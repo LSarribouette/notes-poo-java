@@ -1,0 +1,16 @@
+# Couche DAL
+
+La couche _**Data Access Layer**_ gère les échanges avec le SGBD (sytème de gestion de bases de données) et avec les bases de données.
+
+
+
+
+
+
+
+
+## Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```

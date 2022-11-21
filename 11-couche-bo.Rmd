@@ -1,7 +1,31 @@
 # Couche BO {#bo}
 
-La couche _**Business Object**_ fait partie de la couche métier et correspond au **modèle de données** de la couche métier, *çàd* qu'elle implémente les classes et les liens entre les classes du programme.
+La couche _**Business Object**_ fait partie de la couche métier et gère le **modèle de données**, *çàd* qu'elle implémente les classes et les liens entre les classes du programme.
+
+> Elle ne contient **pas** la logique de l'application.
+
+Elle est utilisée par toutes les autres couches.  
+
+Elle ne doit pas dépendre des autres couches, sinon cela peut engendrer des dépendances transitives ou cycliques (*çàd* qu'après on ne s'en sort pas).  
+Elle ne doit être liée à aucune technologie (par exemple ihm web ou base de données).
 
 
+Elle est composée de **POJOs** : des classes simples qui respectent les principes POO, sans dépendance avec des frameworks ou libraries tierces qui réduirait leur ré-utilisabilité.  
+Ces classes :
 
-> UML : la couche BO est décrite avec un diagramme de classe d'analyse métier
+  - respectent le principe d'encapsulation  
+  > attributs privés (ou protégés), getters et setters publics
+  
+  - utilisent les constructeurs publiques nécessaires
+  - mettent à profit l'héritage, les interfaces, les associations, l'abstraction, la généricité...
+  - implémentent une méthode `toString()`  
+  > qui permet de donner l'état de l'instance et est utilisée en cours de développement pour déboguer.  
+  *Il est cependant conseillé de supprimer ces méthodes avant la mise en production et de favoriser le log (\@ref(logging)).*
+
+> UML : la couche BO est décrite avec un diagramme de classe d'analyse métier.
+
+## Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```

@@ -1,9 +1,10 @@
 A faire :
 
     - [x] html_chapters(split = chapter+section)
-    - [ ] choix je, on, infinif --> on ??
+    - [x] choix je, on, infinif --> on ??
+    - [x] parties : bases java | poo | dev en couches 
 
 A réfléchir :
 
     - glossaire ? déf au survol ?
-    - parties ? bases java | poo | dev en couches 
+    
