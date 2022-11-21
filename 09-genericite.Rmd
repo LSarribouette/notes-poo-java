@@ -1,2 +1,100 @@
 # La généricité
 
+But et définition
+
+(+) 
+    Extension au typage fort  
+    Détecter les erreurs à la compilation  
+    Pouvoir passer un type en paramètre  
+    Syntaxe : utilisation du «diamant»  <Type1[,Type2, ...]>
+
+## Classes génériques
+
+Une classe générique est une classe paramétrée par un type générique T, déclaré avec la notation diamant `<T>` :  
+`public class MaClasseGenerique <T> {}`  
+
+> Le type générique est appelé T par convention, on peut lui assigner la lettre qu'on veut.
+
+> Il est possible de paramétrer plusieurs types génériques. 
+
+Dans le *body*, le type générique T est un attribut à définir : `protected T t;`.  
+Il est possible d'ajouter d'autres attributs normalement.
+Il est possible d'ajouter des méthodes normalement, qui peuvent utiliser l'attribut générique `t` sans souci.
+
+Lors de la création d'une instance de classe générique, le type générique est remplacé par n'importe quelle classe :  
+`MaClasseGenerique<UneClasseAuChoix> monIstance = new MaClasseGenerique<UneClasseAuChoix>();`
+
+> Il est optionnel de répéter la classe entre diamants la seconde fois : `MaClasseGenerique<UneClasseAuChoix> monIstance = new MaClasseGenerique<>();`
+
+Le type générique ne peut **pas** être remplacé par un type de base : on utilise les classes *wrapper* correspondantes (décrites au \@ref(tab-wrapper)).
+
+Le **transtypage** fonctionne ici aussi : on peut faire appel aux enfants du type générique T donné à la classe générique, *çàd* donner en paramètre une classe mère et utiliser des classes enfants.  
+
+Il est possible d'ajouter des **contraintes** sur le type générique, en autorisant uniquement d'assigner des classes qui :
+
+    - héritent d'une classe spécifique : `<T extends UneClasse>`
+    - implémentent un ou plusieurs interface : `<T extends UnInterface & UnAutreInterface>`
+    - font les deux : `<T extends UneClasse & UnInterface & UnAutreInterface>`
+
+> Il faut spécifier la classe mère *avant* les interfaces.
+
+> UML : dans les diagrammes de classe, les classes génériques sont représentées avec un carré en haut à droite de la classe, dont le contour est en pointillés et qui contient la lettre du type générique.
+
+## Méthodes génériques
+
+Une méthode générique est une méthode paramétrée par un type générique T, déclaré avec la notation diamant `<T>` :  
+`public <T> type|void maMethodeGenerique(parametres potentiels) {}`
+
+Lors de l'appel de la méthode, le type générique est remplacé par n'importe quelle classe (à l'instar des classes génériques).
+
+> Par exemple, pour la méthode : `public <T> T[] exempleMethodeGenerique(T[] tableau, int longueur) {}`
+On dit : "exempleMethodeGenerique est une méthode qui s'applique à <T> un type générique, elle renvoie un tableau générique T[], elle prend comme paramètre un tableau générique T[] et un entier longueur".
+
+## Ensembles
+
+Les ensembles sont des classes génériques prédéfinies, utiles lorsque l'on a besoin de variables faisant référence à plusieurs éléments.  
+
+Trois sont communément utilisés :
+
+    - les tableaux : `T[]`
+    - les collections : `List<T>`
+    - les dictionnaires clé/valeur : `Map<K,V>`
+
+Ces trois ensembles possèdent des méthodes semblables qui permettent d'ajouter, de récupérer, de modifier, de supprimer des informations, de connaître la taille de l'ensemble.
+
+### Interfaces : un niveau d'abstraction
+
+Dans les classes prédéfinies, seules les classes les plus précises sont concrètes : toutes les autres sont des interfaces génériques.
+
+> Héritage :  
+>       classe `Object`
+>           < interface `Iterable<T>`
+>               < interface `Collection` 
+>                   < interface `List`
+>                       < classes concrètes comme `ArrayList`, `LinkedList`
+>                   < interface `Set`
+>                       < classes concrètes comme `EnumSet`, `HashSet`, `LinkedHashSet`, `TreeSet`
+>           < interface `Map<K,​V>`
+>                < classes concrètes comme `EnumMap`, `HashMap`, `Hashtable`, `Properties`, `TreeMap`
+
+> Par convention, on utilise le transtypage en déclarant une `List<T>`, un `Set<T>` ou un `Map<K,​V>` que l'on initialise avec la sous-classe de notre choix.  
+Cela permet de faciliter la mise à jour du code si on décide d'utiliser une autre sous-classe : on ne modifie que le constructeur.  
+Par exemple : `List<Integer> entiers = new ArrayList<Integer>;`  
+
+## Collections
+
+Une collection est un tableau dynamique sans taille fixe, *çàd* que l'on a pas besoin d'initialiser la taille (comme pour les tableaux classiques `T[]`) et que celle-ci peut évoluer tout au long du programme.
+
+Une `ArrayList` est une collection indexée qui autorise la présence de doublon.  
+Une instance `ArrayList` a accès à des méthodes comme `add(e:T)`, `get()`, `remove()`, `set()`, `size()`.
+
+Une `LinkedList`, ou liste chaînée, est une collection où une case n'a connaissance que de la case suivante et de la case précédente.  
+
+> Une `LinkedList` est plus optimum qu'une `ArrayList` pour retirer des cases car il n'y a pas d'index.
+
+## Dictionnaires
+
+Un dictionnaire est tableau composé de binômes clé/valeur (*key/value*). 
+
+Un `Hashtable`  a accès à des méthodes comme `containsKey()`, `get()`, `remove()`, `size()`.
+

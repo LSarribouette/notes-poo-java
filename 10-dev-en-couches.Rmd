@@ -1,0 +1,97 @@
+# (PART) DEV EN COUCHES {-} 
+
+# Architecture en couches
+
+Problématique avec une seule couche ?  
+Les éléments graphiques, métier et de persistance des données sont mélangés, ce qui induit :  
+  `r knitr::asis_output("\U2E3A")` une maintenance corrective et évolutive plus difficile,  
+  `r knitr::asis_output("\U2E3A")` l'impossibilité de réutiliser le code,  
+  `r knitr::asis_output("\U2E3A")` une complication du travail collaboratif.
+
+Une solution a été mise en place grâce aux **couches logicielles**, un ensemble de composants logiciels pouvant communiquer entre eux, où chaque couche a sa propre responsabilité.
+
+> Notion de **cohésion**.
+
+Les couches logicielles permettent de créer des composants réutilisables et interchangeables.
+
+Un lien entre deux couches est appelé **couplage** : 
+
+  - un couplage fort indique une dépendance : "la couche A a besoin de la couche B"
+  - un couplage faible indique une utilisation : "la couche A utilise la couche C"
+
+## Le modèle d'architecture à trois niveaux
+
+!! HORS-PROGRAMME !!
+
+Ce chapitre décrit l'architecture à trois niveaux qui a été l'architecture dominante pour les applications client-serveur pendant des décennies.  
+
+> Il est grandement inspiré de l'article de IBM "Qu'est-ce que l'architecture à trois niveaux", disponible [ici](https://www.ibm.com/fr-fr/cloud/learn/three-tier-architecture).
+
+**Attention** à ne pas confondre "niveau" et "couche" :  
+
+  - une « couche » fait référence à une division fonctionnelle du logiciel, 
+  - mais un « niveau » se rapporte à une division fonctionnelle du logiciel qui fonctionne sur une infrastructure distincte des autres divisions.
+
+Aujourd'hui, la plupart des applications à trois niveaux sont destinées à être modernisées, en utilisant des technologies natives cloud, telles que les conteneurs et les microservices, et à migrer vers le cloud.
+
+> Plus de détails sur les choix d'architecture [ici](https://www.ibm.com/cloud/blog/four-architecture-choices-for-application-development)
+
+L'architecture à trois niveaux sépare les applications en trois niveaux de calcul logiques et physiques :
+
+  1. Niveau Présentation
+  2. Niveau Application
+  3. Niveau Données
+
+Le niveau **Présentation** est l'interface utilisateur et la couche de communication de l'application, où l'utilisateur final interagit avec l'application.  
+Sa principale fonction est d'afficher des informations à l'attention de l'utilisateur et d'en collecter de ce dernier.  
+Ce niveau de niveau supérieur peut s'exécuter sur un navigateur Web, en tant qu'application pour ordinateur de bureau, ou interface graphique utilisateur, par exemple.  
+
+> Les niveaux Présentation Web sont généralement développés à l'aide de HTML, CSS et JavaScript.  
+Les applications pour ordinateur de bureau peuvent être écrites dans divers langages selon la plateforme.
+
+Le niveau **Application**, également appelé niveau logique ou niveau intermédiaire, est le cœur de l'application.  
+Dans ce niveau, les informations collectées dans le niveau Présentation sont traitées, parfois par rapport à d'autres informations, dans le niveau Données, en utilisant la logique applicative, un ensemble spécifique de **règles métier**.  
+Le niveau Application peut également ajouter, supprimer ou modifier des données dans le niveau Données.
+
+> Le niveau Application est généralement développé à l'aide de Python, Java, Perl, PHP ou Ruby, et communique avec le niveau Données à l'aide d'appels d'API. 
+
+Le niveau **Données**, parfois appelé niveau Base de données, niveau Accès aux données ou Système dorsal, est l'endroit où les informations traitées par l'application sont stockées et gérées.  
+Il peut s'agir d'un SGBDR (système de gestion de base de données relationnelle), tel que PostgreSQL, MySQL, MariaDB, Oracle, DB2, Informix ou Microsoft SQL Server, ou d'un serveur de base de données NoSQL tel que Cassandra, CouchDB ou MongoDB. 
+
+Dans une application à trois niveaux, toutes les communications passent par le niveau Application. Le niveau de Présentation et le niveau de Données ne peuvent pas communiquer directement entre eux.
+
+**Et nos couches logicielles alors ?**
+
+Ce modèle d'architecture présente les grandes lignes du développement en couches : 
+
+  - le niveau Présentation correspond à la couche IHM,
+  - le niveau Application correspond aux couches BO et BLL, 
+  - le niveau Données correspond aux couches DAL et au SGBD (sytème de gestion de base de données). 
+  
+## Couches logicielles
+
+Dans ce cours, quatre couches logicielles sont décrites :
+
+  1. la couche **IHM** (*interface home-machine*) (\@ref(ihm))  
+  Elle gère la partie *front* : les échange avec l'utilisateur.
+  2. la couche "métier", découpée en deux couches : 
+      - la couche **BLL** (*business logic layer*)  (\@ref(bll))  
+      Elle gère le modèle de la couche métier (classes et liens entre classes).
+      - la couche **BO** (*business object*) (\@ref(bo))  
+      Elle gère les règles de gestion métier.
+  3. la couche **DAL** (*data access layer*) (\@ref(dal))  
+  Elle gère la partie *data* : les échanges avec la base de données.
+
+> Dans les projets Java, chaque couche correspond gloablement à un package.
+
+Couplages forts :  
+
+  - IHM ---a besoin de--> BLL  
+  - DAL ---a besoin de--> BLL  
+
+Couplages faibles :
+
+  - IHM ---utilise--> BO  
+  - BLL ---utilise--> BO  
+  - DAL ---utilise--> BO  
+  

@@ -62,9 +62,8 @@ Les principaux indicateurs sont `%d` (nombre entier), `%f` (nombre décimal), `%
 ```{java, eval=FALSE}
 System.out.printf('Nom: %s, prénom; %s, âge: %d ans, taille: %.2fm',
                   nom, prenom, age, taille)
+  // Nom: Lebonvieux, prénom: Bob, âge: 64 ans, taille: 1.73m 
 ```
-**Output : ** *Nom: Lebonvieux, prénom: Bob, âge: 64 ans, taille: 1.73m*
-
 
 > `%.2f` permet de limiter le nombre à deux chiffres après la virgule.
 
@@ -227,7 +226,7 @@ Une variable déclarée dans le `main`, quant à elle, sera accessible aux méth
 --> **Une classe est responsable de ses données.**  
 Les variables déclarées dans une classe (*attributs*) ne sont donc pas accessibles à l'extérieur de celle-ci, pour les protéger. Des méthodes spécifiques sont définies dans la classe pour accéder ou modifier ces variables depuis l'extérieur : appelées des assesseurs et mutateurs (*getters* et *setters*), elles permettent de sélectionner les variables auxquelles on donne accès et d'effectuer des contrôles.  
 
-## Les exceptions
+## Les exceptions {#intro-exceptions}
 
 *(voir le chapitre dédié \@ref(les-exceptions) pour plus de détails et des exemples)*
 

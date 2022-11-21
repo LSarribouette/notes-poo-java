@@ -1,0 +1,14 @@
+# Couche IHM {#ihm}
+
+
+
+
+
+
+
+
+## Exemple simple
+
+```{java, eval=FALSE}
+// à compléter
+```

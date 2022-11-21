@@ -2,6 +2,8 @@
 
 # L'utilisation des classes
 
+Définition POO
+
 Objectif : 
 
   - Regrouper des variables "qui vont bien ensemble"
@@ -24,7 +26,8 @@ Exemple avec une classe que l'on connait : `Scanner`
 
 ```{java, eval=FALSE}
 import java.util.Scanner;
-Scanner console = new Scanner(System.in); // pour info : le paramètre System.in permet de récupérer la saisie utilisateur
+Scanner console = new Scanner(System.in); // pour info : le paramètre System.in permet 
+                                          // de récupérer la saisie utilisateur
 ```
 
 ### Importer la classe {#import-classe}
@@ -113,10 +116,12 @@ Un objet `String` est **immmuable** : une fois construit, il n'est plus modifiab
 
 ```{java, eval=FALSE}
 String s1 = "une première chaîne de caractères";
-String s2 = new String("une seconde chaîne de caractères"); // il est possible d'utiliser le constructeur
+String s2 = new String("une seconde chaîne de caractères"); // il est possible d'utiliser 
+                                                            // le constructeur
 String s3 = s1 + s2; // on crée explicite une autre instance
 
-System.out.println("Voici " + s1 + "et même " + s2); // on crée implicitement une nouvelle instance
+System.out.println("Voici " + s1 + "et même " + s2);  // on crée implicitement une nouvelle 
+                                                      // instance
 ```
 
 Alternative : `StringBuilder`, qui est modifiable

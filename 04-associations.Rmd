@@ -1,7 +1,5 @@
 # Les associations
 
-Définition
-
 ## Association unidirectionnelle
 
 Dans le cas d'une association unidirectionnelle, une classe A appelle une classe B, comme attribut, et peut l'utiliser comme un attribut normal : l'association est naviguable dans un sens uniquement.
@@ -10,22 +8,19 @@ Dans le cas d'une association unidirectionnelle, une classe A appelle une classe
 
 Méthodologie :
 
-    - en amont :
-        - on crée un projet : `MonProjet`
-        - on crée un package : `fr.lsarribouette.monprojet.metier`
-        - on crée deux classes : `MaClasseA.java` et `MaClasseB.java`
+  - en amont :
+      - on crée un projet : `MonProjet`
+      - on crée un package : `fr.lsarribouette.monprojet.metier`
+      - on crée deux classes : `MaClasseA.java` et `MaClasseB.java`
 
-    - dans `MaClasseA` :
-        - on ajoute un attribut objet dont le type est `MaClasseB` : `private MaClasseB instanceB;`
-        - on peux l'implémenter dans le constructeur
-        - on peux ajouter un getter et un setter 
+  - dans `MaClasseA` :
+      - on ajoute un attribut objet dont le type est `MaClasseB` : `private MaClasseB instanceB;`
+      - on peux l'implémenter dans le constructeur
+      - on peux ajouter un getter et un setter 
 
-    - dans la méthode `main` de la classe de test :
-        - on crée d'abord une instance de `MaClasseB`
-        - on crée ensuite une instance de `MaClasseA` qui utilise l'instance de `MaClasseB`  
-
-Exemple d'association unidirectionnelle où une classe Etudiant a un attribut objet Université :
-
+  - dans la méthode `main` de la classe de test :
+      - on crée d'abord une instance de `MaClasseB`
+      - on crée ensuite une instance de `MaClasseA` qui utilise l'instance de `MaClasseB`  
 
 ### Exemple simple
 
@@ -155,7 +150,7 @@ Dans le cas d'une association bidirectionnelle, les classes A et B s'appellent m
 
 > Si les classes A et B ont une association bidirectionnelle, alors A connait B mais B connait aussi A.
 
-Méthodologie : à compléter
+Méthodologie : // à compléter
 
 > Seule une implémente l'autre dans son constructeur, sinon c'est le serpent qui se mord la queue.  
 *çàd* un seul constructeur avec `this` pour un attribut objet.

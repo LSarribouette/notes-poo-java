@@ -13,10 +13,16 @@ link-citations: yes
 github-repo: LSarribouette/notes-poo-java
 ---
 
+
 # Présentation {-}
 
-L'objectif de ce projet est d'avoir un support durable, clair et facile à manipuler pour mes notes de cours de POO avec Java.
-
+L'objectif de ce projet est d'avoir un support durable, clair et facile à manipuler pour mes notes de cours de POO avec Java.  
 J'y ai inclus les notions de base, accompagnées autant que possible de définitions, de méthodologies, de démonstrations-type et d'exemples simples.
+
+En *première partie*, je fais des rappels sur **Java**.  
+En *seconde partie*, je traite des principaux sujets liés à la **Programmation Orientée Objet** avec Java.  
+En *troisième partie*, j'aborde le **développement en couches** avec Java.
+
+---
 
 *Pour information, le projet a été réalisé avec `r R.version.string` et RStudio 2022.7.2.576 (Spotted Wakerobin).*

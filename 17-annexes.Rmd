@@ -1,0 +1,55 @@
+# (APPENDIX) Annexe {-#annexe} 
+
+# Annexe A
+
+Conventions : nommage,...
+
+  - projet : en UpperCamelCase
+  - package : en minuscules
+  - classe : en UpperCamelCase, au singulier ?
+  - instance : en UpperCamelCase
+  - méthode : lowerCamelCase
+
+Javadoc :
+
+  - utilisation
+  - de l'importance de l'écrire !!
+
+
+IDE : 
+
+  - Client lourd != léger
+  - JRE, JDK,...
+  - JSE, JEE ...
+    - standard != norme qui repose sur SE et permet de faire du web (requêtes http)
+  - IDE : Eclipse ~classique, IntelliJ ~EE, VSCode ~en devenir (+PHPStorm)
+  - JAVA-HOME
+
+# Annexe B
+
+Déclaration, affectation, initialisation, instanciation,....
+
+Différence entre un argument et un paramètre (https://www.developpement-informatique.com/article/248/methodes-et-surcharge-des-methodes-en-java)
+
+Héritage : généralisation, spécialisation
+
+Type paramètre ; Type argument
+
+# Annexe C
+
+Bonnes pratiques
+
+Principes : 
+
+  - ACID  
+  - DRY  
+  - Encapsulation 
+  - Visibilité  
+
+Maintenabilité : toute ligne duppliquée doit être mise en commun
+
+# Annexe D
+
+design patterns : factory, singleton, observer, 
+
+UML : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/diagramme-de-classes-uml/
