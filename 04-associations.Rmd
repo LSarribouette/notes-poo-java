@@ -22,9 +22,6 @@ Méthodologie :
         - on crée d'abord une instance de `MaClasseB`
         - on crée ensuite une instance de `MaClasseA` qui utilise l'instance de `MaClasseB`  
 
-Exemple d'association unidirectionnelle où une classe Etudiant a un attribut objet Université :
-
-
 ### Exemple simple
 
 Association unidirectionnelle entre un étudiant et son université :  

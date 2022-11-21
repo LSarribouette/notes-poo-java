@@ -1,4 +1,4 @@
-# Les exceptions
+# Les exceptions {#les-exceptions}
 
 Définition
 
