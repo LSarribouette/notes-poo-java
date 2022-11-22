@@ -2,6 +2,194 @@
 
 La couche _**Data Access Layer**_ gère les échanges avec le SGBD (sytème de gestion de bases de données) et avec les bases de données.
 
+> Ce module est grandement inspiré du livre "Java, les fondamentaux du langage" publié par l'ENI, plus précisément le chapitre 6 (p.361 à 412).
+
+Pour manipuler une base de données à partir d'un langage de programmation, il est possible de :
+
+  `r knitr::asis_output("\U2E3A")` communiquer directement avec la base de données  
+  `r knitr::asis_output("\U2E3A")` ou utiliser une couche logicielle qui assure elle-même le dialogue avec la base de données
+
+L'**API JDBC** (*java database connectivity*) a été développée spécifiquement pour mettre en place la deuxième solution.   
+Elle est composée de deux packages :
+
+  - **java.sql** : un ensemble de classes, essentiellement des interfaces, pour accéder et traiter des données stockées dans une base
+  - javax.sql : un ensemble de classes, essentiellement des interfaces, pour l'accès et le traitement des sources de données côté serveur
+  
+> Plus de détails sur l'API dans la javadoc [ici](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)
+
+Pour utiliser l'API JDBC avec un SGBD particulier, il est nécessaire d'utiliser un **pilote** (*driver*) pour assurer la médiation entre la technologie JDBC et la base de données.  
+Il existe différents types de pilotes (*hors programme*).  
+--> Nous allons utiliser un type de pilote entièrement écrit en Java : chaque SGBD propose son pilote spécifique, qu'il faut télécharger et lier à son projet Java.
+
+
+L'API JDBC est une bibliothèque de classes JDBC, qui se charge de trois étapes indispensables à la connexion à une base de données : la création d'une connexion à la base, l'envoi d'instructions SQL et l'exploitation des résultats provenant de la base.
+
+> *Site à checker plus tard* [ici](https://web.maths.unsw.edu.au/~lafaye/CCM/java/javajdbc.htm)
+
+Les principales classes de l'API JDBC que nous allons utiliser permettent de retracer le cheminement logique depuis le pilote jusqu'aux données :
+
+  1. la classe `DriveManager` : point de départ qui assure la liaison avec le pilote, c'est par son intermédiaire que l'on obtient une connexion vers la base de données
+  
+  2. la classe `Connection` : représente une connexion vers la base de données(  
+  
+  3. La connexion ainsi créée permet de transmettre des instructions (*requêtes*) vers la base :
+    -la classe `Statement` : utilisée pour exécuter les requêtes simples (statiques) et retourner le résultat \@ref(statement)
+    -la classe `PreparedStatement` : utilisée pour les requêtes paramétrées \@ref(prepared-statement) (représente les requêtes précompilées)
+    -la classe `CallableStatement` : utilisée pour exécuter les procédures stockées \@ref(callable-statement)
+  
+  4. la classe `ResultSet` : les éventuels enregistrements sélectionnés par l'instruction SQL sont accessibles avec un élément `ResultSet`
+
+> Plus de détails sur les classes du package java.sql dans la javadoc [ici](https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html)
+
+> Hors-programme :  
+Une API (*application programming interface*) est un ensemble normalisé de classes, de méthodes, de fonctions et de constantes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels.
+
+## Les bases de SQL
+
+Cette partie comporte principalement des rappels de l'initiation à SQL. Les notions sont donc peu détaillées.
+
+> Une cheatsheet pratique [ici](https://www.codecademy.com/learn/learn-sql/modules/learn-sql-manipulation/cheatsheet)
+
+### Le langage SQL
+
+Le langage SQL (*structured query langage*) est un langage de **requêtes** normalisé, standardisé, universel et descriptif.
+
+> Ce n'est pas un langage procédural : pas de boucles, de variables ou de gestion d'erreurs.
+
+Il permet d'effectuer des opérations sur les bases de données et leur contenu.
+
+Il s'utilise au sein de SBGDR (systèmes de gestion de données relationnelle) : PostgreSQL (logiciel libre), SQLite, Microsoft SQL Server, MySQL, Oracle Database...
+
+Des IDE ont été développé pour simplifier le développement et la gestion des bases de données : pgAdmin pour PostgreSQL, Microsoft SQL Server Management Studio pour Microsoft SQL Server, SQL Plus et SQL Developer pour Oracle Database...
+
+> Il existe des langages procéduraux spécifiques à des SGBDR, ils permettent d'accéder à des fonctionnalités supplémentaires sous la forme de "procédures ou fonctions stockées".  
+**(!)** Il est possible de faire 98% des choses avec simplement le SQL. Les langages procéduraux qui étendent le SQL sont propriétaires et présentent de nombreux désavantages.  
+Ex : Transact-SQL pour Microsoft SQL Server, PL-SQL pour Oracle Database
+
+Les instructions sont regroupées en trois catégories :
+
+  - DDL (*Data Description Language*) : `CREATE`, `ALTER`, `DROP`
+  - DML (*Data Manipulation Language*) : `SELECT`, `INSERT`, `UPDATE`, `DELETE`
+  - DCL (*Data Control Language*) : `BEGIN TRAN`, `COMMIT TRAN`, `SAVE TRAN`, `ROLLBACK TRAN`
+
+> Par convention, les instructions SQL sont en majuscules. Néanmoins, le langage n'est pas sensible à la casse et ce n'est donc pas obligatoire.
+
+### Normalisation des bases de données
+
+Formes normales --> traduction : 
+
+  - une colonne = une et une seule donnée  
+  (*une colonne pour le nom, une pour le prénom : on ne mélange pas*)
+  - une seule colonne pour une même donnée  
+  (*une colonne "année" et surtout pas des colonnes "2014", "2015", etc*)
+  - une table = un et un seul thème  
+  (*une table "auteurs" avec la liste des auteurs et les informations qui les concernent, une autre table "ouvrages" avec la liste des ouvrages et les informations qui les concernent : oui, une colonne "auteur" dans la table "Ouvrages" mais on décrit l'auteur dans une table à part*)
+  - une ligne = une et une seule information donc une ligne est unique  
+  (*dans la table "auteur", toutes les informations sur un auteur spécifique sont regroupées sur une seule ligne*)
+
+> Plus de détails sur la normalisation des données  [ici](https://www.ionos.fr/digitalguide/hebergement/aspects-techniques/normalisation-base-de-donnees/)
+
+### Mise en place
+
+Connexion
+
+Créer une base de données
+
+Gérer les droits d'accès
+
+
+### DDL 
+
+Créer une table :
+
+```{sql, eval=FALSE}
+CREATE TABLE table_name(...);
+```
+
+Intégrité des données : 
+
+Modifier une table :  
+Colonnes : ajouter, modifier, supprimer  
+Contraintes : ajouter, supprimer, activer/désactiver  
+
+Supprimer une table :  
+D'abord supprimer les contraintes, puis la table
+
+Index :   
+créer, supprimer, reconstruire/autre option
+
+### DML
+
+Insérer des données : 
+
+Modifier des données : 
+
+Supprimer des données : 
+
+Extraire (rechercher) des informations :  
++ restriction WHERE  
++ calcul d'agrégat  
++ tri  
++ jointures (cross join, inner join, left | right | full outer join)  
++ tables temporaires  
++ sous-requêtes (imbriquées, corrélées)  
++ table CTE (Common Table Expression)  
++ UNION, EXCEPT, INTERSECT  
++ vues  
+
+### DCL 
+
+Transactions :
+
+
+
+## Charger le pilote JDBC
+
+Sur le site correspond au SGBD choisi, télécharger le pilote JDBC : un fichier archive en .jar.
+
+Créer un projet Java.
+
+Créer un dossier "lib" à la racine du projet,*çàd au même niveau que le dossier "src".
+
+Ajouter le fichier du pilote dans le dossier "lib".
+
+Configurer le *Build Path* du projet en y ajoutant le fichier du pilote : il apparaît maintenant dans les *Referenced Libraries*.
+
+> Dans Eclipse, un exemple :  
+Project > Properties > Java Build Path > Libraries > Add JARs... > *Sélectionner le pilote* > OK
+
+Bravo ! Maintenant, le pilote est chargé automatiquement à l'exécution du projet.
+
+## Etablir une connexion
+
+## Exécuter une instruction SQL
+
+### Statement
+
+### PreparedStatement
+
+### CallableStatement
+
+## Gérer les transactions
+
+## Externaliser la chaîne de connexion
+
+## Design Pattern DAO
+
+Définir le Data Access Object (DAO)
+
+Utiliser la DAL depuis la BLL
+
+Utiliser une Factory
+
+Utiliser la DAL depuis la BLL
+
+Le modèle statique du Design Pattern DAO
+
+Le modèle dynamique du Design Pattern DAO
+
+Le Design Pattern DAO : démo
+
 
 
 

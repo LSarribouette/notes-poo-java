@@ -4,6 +4,8 @@
 
 Cette partie comporte principalement des rappels de l'initiation à Java. Les notions sont donc peu détaillées.
 
+> Des cheatsheets pratiques [ici](https://www.codecademy.com/resources/cheatsheets/language/java)
+
 ## Le langage Java
 
 Java est un langage qui doit être compilé puis exécuté.  

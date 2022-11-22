@@ -13,6 +13,11 @@ link-citations: yes
 github-repo: LSarribouette/notes-poo-java
 ---
 
+```{r libraries, message=FALSE, warning=FALSE, include=FALSE}
+library(renv)
+library(rmarkdown)
+library(bookdown)
+```
 
 # Présentation {-}
 
