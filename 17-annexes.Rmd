@@ -4,11 +4,11 @@
 
 Conventions : nommage,...
 
-  - projet : en UpperCamelCase
-  - package : en minuscules
-  - classe : en UpperCamelCase, au singulier ?
-  - instance : en UpperCamelCase
-  - méthode : lowerCamelCase
+    - projet : en UpperCamelCase
+    - package : en minuscules
+    - classe : en UpperCamelCase, au singulier ?
+    - instance : en UpperCamelCase
+    - méthode : lowerCamelCase
 
 Javadoc :
 
