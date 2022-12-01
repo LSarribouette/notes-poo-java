@@ -6,57 +6,57 @@ La couche _**Data Access Layer**_ gère les échanges avec le SGBD (sytème de g
 
 Pour manipuler une base de données à partir d'un langage de programmation, il est possible de :
 
-  `r knitr::asis_output("\U2E3A")` communiquer directement avec la base de données  
-  `r knitr::asis_output("\U2E3A")` ou utiliser une couche logicielle qui assure elle-même le dialogue avec la base de données
+  `r knitr::asis_output("\U2E3A")` communiquer directement avec la base de données  
+  `r knitr::asis_output("\U2E3A")` ou utiliser une couche logicielle qui assure elle-même le dialogue avec la base de données
 
-L'**API JDBC** (*java database connectivity*) a été développée spécifiquement pour mettre en place la deuxième solution.   
+L'**API JDBC** (*java database connectivity*) a été développée spécifiquement pour mettre en place la deuxième solution.   
 Elle est composée de deux packages :
 
-  - **java.sql** : un ensemble de classes, essentiellement des interfaces, pour accéder et traiter des données stockées dans une base
-  - javax.sql : un ensemble de classes, essentiellement des interfaces, pour l'accès et le traitement des sources de données côté serveur
-  
-> Plus de détails sur l'API dans la javadoc [ici](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)
+  - **java.sql** : un ensemble de classes, essentiellement des interfaces, pour accéder et traiter des données stockées dans une base
+  - javax.sql : un ensemble de classes, essentiellement des interfaces, pour l'accès et le traitement des sources de données côté serveur
+  
+> Plus de détails sur l'API dans la javadoc [ici](https: --docs.oracle.com/javase/8/docs/technotes/guides/jdbc/).
 
-Pour utiliser l'API JDBC avec un SGBD particulier, il est nécessaire d'utiliser un **pilote** (*driver*) pour assurer la médiation entre la technologie JDBC et la base de données.  
-Il existe différents types de pilotes (*hors programme*).  
---> Nous allons utiliser un type de pilote entièrement écrit en Java : chaque SGBD propose son pilote spécifique, qu'il faut télécharger et lier à son projet Java.
+Pour utiliser l'API JDBC avec un SGBD particulier, il est nécessaire d'utiliser un **pilote** (*driver*) pour assurer la médiation entre la technologie JDBC et la base de données.  
+Il existe différents types de pilotes (*hors programme*).  
+--> Nous allons utiliser un type de pilote entièrement écrit en Java : chaque SGBD propose son pilote spécifique, qu'il faut télécharger et lier à son projet Java.  
 
 
 L'API JDBC est une bibliothèque de classes JDBC, qui se charge de trois étapes indispensables à la connexion à une base de données : la création d'une connexion à la base, l'envoi d'instructions SQL et l'exploitation des résultats provenant de la base.
 
-> *Site à checker plus tard* [ici](https://web.maths.unsw.edu.au/~lafaye/CCM/java/javajdbc.htm)
+> *Site à checker plus tard* [ici](https: --web.maths.unsw.edu.au/~lafaye/CCM/java/javajdbc.htm)
 
 Les principales classes de l'API JDBC que nous allons utiliser permettent de retracer le cheminement logique depuis le pilote jusqu'aux données :
 
-  1. la classe `DriveManager` : point de départ qui assure la liaison avec le pilote, c'est par son intermédiaire que l'on obtient une connexion vers la base de données
-  
-  2. la classe `Connection` : représente une connexion vers la base de données(  
-  
-  3. La connexion ainsi créée permet de transmettre des instructions (*requêtes*) vers la base :
-    -la classe `Statement` : utilisée pour exécuter les requêtes simples (statiques) et retourner le résultat \@ref(statement)
-    -la classe `PreparedStatement` : utilisée pour les requêtes paramétrées \@ref(prepared-statement) (représente les requêtes précompilées)
-    -la classe `CallableStatement` : utilisée pour exécuter les procédures stockées \@ref(callable-statement)
-  
-  4. la classe `ResultSet` : les éventuels enregistrements sélectionnés par l'instruction SQL sont accessibles avec un élément `ResultSet`
+  1. la classe `DriveManager` : point de départ qui assure la liaison avec le pilote, c'est par son intermédiaire que l'on obtient une connexion vers la base de données
+  
+  2. la classe `Connection` : représente une connexion vers la base de données(  
+  
+  3. La connexion ainsi créée permet de transmettre des instructions (*requêtes*) vers la base :
+    -la classe `Statement` : utilisée pour exécuter les requêtes simples (statiques) et retourner le résultat \@ref(statement)
+    -la classe `PreparedStatement` : utilisée pour les requêtes paramétrées \@ref(prepared-statement) (représente les requêtes précompilées)
+    -la classe `CallableStatement` : utilisée pour exécuter les procédures stockées \@ref(callable-statement)
+  
+  4. la classe `ResultSet` : les éventuels enregistrements sélectionnés par l'instruction SQL sont accessibles avec un élément `ResultSet`
 
-> Plus de détails sur les classes du package java.sql dans la javadoc [ici](https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html)
+> Plus de détails sur les classes du package java.sql dans la javadoc [ici](https: --docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html).
 
-> Hors-programme :  
+> Hors-programme :  
 Une API (*application programming interface*) est un ensemble normalisé de classes, de méthodes, de fonctions et de constantes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels.
 
 
-// TODO à supprimer
+ -- TODO à supprimer
 
 méthodes de `Connection` :
-Statement     createStatement()
+Statement     createStatement()
 Creates a Statement object for sending SQL statements to the database.
-PreparedStatement     prepareStatement(String sql)
+PreparedStatement     prepareStatement(String sql)
 Creates a PreparedStatement object for sending parameterized SQL statements to the database.
-CallableStatement     prepareCall(String sql)
+CallableStatement     prepareCall(String sql)
 Creates a CallableStatement object for calling database stored procedures.
 
 
-tuto : https://www.jmdoudoux.fr/java/dej/chap-jdbc.htm
+tuto : https: --www.jmdoudoux.fr/java/dej/chap-jdbc.htm
 
 
 
@@ -65,7 +65,7 @@ tuto : https://www.jmdoudoux.fr/java/dej/chap-jdbc.htm
 
 Cette partie comporte principalement des rappels de l'initiation à SQL. Les notions sont donc peu détaillées.
 
-> Une cheatsheet pratique [ici](https://www.codecademy.com/learn/learn-sql/modules/learn-sql-manipulation/cheatsheet)
+> Une cheatsheet pratique [ici](https: --www.codecademy.com/learn/learn-sql/modules/learn-sql-manipulation/cheatsheet).
 
 ### Le langage SQL
 
@@ -79,42 +79,61 @@ Il s'utilise au sein de SBGDR (systèmes de gestion de données relationnelle) :
 
 Des IDE ont été développé pour simplifier le développement et la gestion des bases de données : pgAdmin pour PostgreSQL, Microsoft SQL Server Management Studio pour Microsoft SQL Server, SQL Plus et SQL Developer pour Oracle Database...
 
-> Il existe des langages procéduraux spécifiques à des SGBDR, ils permettent d'accéder à des fonctionnalités supplémentaires sous la forme de "procédures ou fonctions stockées".  
-**(!)** Il est possible de faire 98% des choses avec simplement le SQL. Les langages procéduraux qui étendent le SQL sont propriétaires et présentent de nombreux désavantages.  
+> Il existe des langages procéduraux spécifiques à des SGBDR, ils permettent d'accéder à des fonctionnalités supplémentaires sous la forme de "procédures ou fonctions stockées".  
+**(!)** Il est possible de faire 98% des choses avec simplement le SQL. Les langages procéduraux qui étendent le SQL sont propriétaires et présentent de nombreux désavantages.  
 Ex : Transact-SQL pour Microsoft SQL Server, PL-SQL pour Oracle Database
 
-Les instructions sont regroupées en trois catégories :
+Les instructions peuvent être regroupées en quatre catégories *(subjectives et divergentes selon les sources)* :
 
-  - DDL (*Data Description Language*) : `CREATE`, `ALTER`, `DROP`
-  - DML (*Data Manipulation Language*) : `SELECT`, `INSERT`, `UPDATE`, `DELETE`
-  - DCL (*Data Control Language*) : `BEGIN TRAN`, `COMMIT TRAN`, `SAVE TRAN`, `ROLLBACK TRAN`
+  - DCL (*Data Control Language*) : `GRANT`, `REVOKE`
+  - DDL (*Data Description Language*) : `CREATE`, `ALTER`, `DROP`
+  - DML (*Data Manipulation Language*) : `SELECT`, `INSERT`, `UPDATE`, `DELETE`
+  - TCL (*Transaction Control Language*) : `BEGIN TRAN`, `COMMIT TRAN`, `SAVE TRAN`, `ROLLBACK TRAN`
 
-> Par convention, les instructions SQL sont en majuscules et les noms de tables, colonnes, etc, sont en minuscules (et en snake_case).  
+> Par convention, les instructions SQL sont en majuscules et les noms de tables, colonnes, etc, sont en minuscules (et en snake_case).  
 Néanmoins, le langage n'est pas sensible à la casse et ce n'est donc pas obligatoire.
 
 ### Normalisation des bases de données
 
 Formes normales --> traduction :
 
-  - une colonne = une et une seule donnée  
-  (*une colonne pour le nom, une pour le prénom : on ne mélange pas*)
-  - une seule colonne pour une même donnée  
-  (*une colonne "année" et surtout pas des colonnes "2014", "2015", etc*)
-  - une table = un et un seul thème  
-  (*une table "auteurs" avec la liste des auteurs et les informations qui les concernent, une autre table "ouvrages" avec la liste des ouvrages et les informations qui les concernent : oui, une colonne "auteur" dans la table "Ouvrages" mais on décrit l'auteur dans une table à part*)
-  - une ligne = une et une seule information donc une ligne est unique  
-  (*dans la table "auteur", toutes les informations sur un auteur spécifique sont regroupées sur une seule ligne*)
+  - une colonne = une et une seule donnée  
+  (*une colonne pour le nom, une pour le prénom : on ne mélange pas*)
+  - une seule colonne pour une même donnée  
+  (*une colonne "année" et surtout pas des colonnes "2014", "2015", etc*)
+  - une table = un et un seul thème  
+  (*une table "auteurs" avec la liste des auteurs et les informations qui les concernent, une autre table "ouvrages" avec la liste des ouvrages et les informations qui les concernent : oui, une colonne "auteur" dans la table "Ouvrages" mais on décrit l'auteur dans une table à part*)
+  - une ligne = une et une seule information donc une ligne est unique  
+  (*dans la table "auteur", toutes les informations sur un auteur spécifique sont regroupées sur une seule ligne*)
 
-> Plus de détails sur la normalisation des données  [ici](https://www.ionos.fr/digitalguide/hebergement/aspects-techniques/normalisation-base-de-donnees/)
+> Plus de détails sur la normalisation des données  [ici](https: --www.ionos.fr/digitalguide/hebergement/aspects-techniques/normalisation-base-de-donnees/).
 
 ### Mise en place
 
-Connexion
+Se connecter :
 
-Créer une base de données
+La connexion à une base de données est spécifique à chaque SGBD, avec toujours un login et un mot de passe. 
 
-Gérer les droits d'accès
+Il existe différentes façon de se connecter, selon ses privilèges :
 
+  - privilèges serveur : réservés à l'administrateur, notamment droits de propriété sur toutes les bases de données mais aussi sur les utilisateurs et leurs droits
+  - privilèges base de donnée : pour les utilisateurs, notamment droits de propriété sur une base de donnée ou une table, droits d'écriture ou de lecture uniquement
+  
+> Plus de détails sur les privilèges [ici](https://sqlpro.developpez.com/article/authentification/#LVI) (article spécifique à SQL Server, mais la théorie est sensiblement la même pour les autres SGBD).
+
+Créer une base de données :
+
+```{sql, eval=FALSE}
+CREATE DATABASE ma_bdd;
+
+DROP DATABASE ma_bdd;
+```
+
+### DCL
+
+Les instructions telles que `GRANT` et `REVOKE` sont réservées à l'administrateur de la base de données. Elles permettent principalement de contrôler les accès utilisateur aux objets de base de données et à leur contenu.
+
+> Plus de détails sur le DCL [ici](https://www.ibm.com/docs/fr/psfa/7.1.0?topic=categories-data-control-language).
 
 ### DDL
 
@@ -122,54 +141,56 @@ Créer une table :
 
 ```{sql, eval=FALSE}
 CREATE TABLE ma_table(
-    ma_colonne_1 TYPE,
-    ma_colonne_2 TYPE,
-    ma_colonne_3 TYPE,
-    ...
-    );
+    ma_colonne_1 TYPE,
+    ma_colonne_2 TYPE,
+    ma_colonne_3 TYPE,
+    ...
+    );
 ```
 
-> Les types possibles sont décrits [ici](https://developpement-informatique.com/article/282/types-de-donnees-sql).
+> Les types possibles sont décrits [ici](https: --developpement-informatique.com/article/282/types-de-donnees-sql).  
+Brièvement : `bit | bigint |int | smallint | tinyint | numeric | decimal | float | real | binary| varbinary | image char| varchar | text | money | smallmoney | time | timestamp | date | datetime | smalldatetime | nchar | nvarchar | ntext | timestamp | xml | sql variant`.
 
-Intégrité des données :  
+Intégrité des données :  
 
-  - contrainte de non nullité : `NOT NULL`
-  - contrainte d'unicité : `UNIQUE` (aussi appelée clé secondaire)
-  - contrainte de clé primaire : `PRIMARY KEY` (regroupe implicitement les deux contraintes précédentes)
-  - contrainte d'intégrité référentielle (clé étrangère) : `FOREIGN KEY` 
-  - contraite de validation : `CHECK` (conditions imposées)
-  - (+) possibilité de donner une valeur par défaut : `DEFAULT`
-  - (+) possibilité d'ajouter un compteur (incrément automatique, un seul par table) : `IDENTITY`
+  - contrainte de non nullité : `NOT NULL`
+  - contrainte d'unicité : `UNIQUE` (aussi appelée clé secondaire)
+  - contrainte de clé primaire : `PRIMARY KEY` (regroupe implicitement les deux contraintes précédentes)
+  - contrainte d'intégrité référentielle (clé étrangère) : `FOREIGN KEY` 
+  - contraite de validation : `CHECK` (conditions imposées)
+  - (+) possibilité de donner une valeur par défaut : `DEFAULT`
+  - (+) possibilité d'ajouter un compteur (incrément automatique, un seul par table) : `IDENTITY`
 
 > Une contrainte peut être indiquée sur la ligne de définition de la colonne ou à la fin de la déclaration de toutes les colonnes.
 
-> Il est possible d'avoir un effet sur la colonne FK lors de la modification de la colonne PK liée grâce à `ON DELETE` (et `ON UPDATE`, plus rare) avec comme options `CASCADE`, `SET NULL` et `SET DEFAULT`.  
+> Il est possible d'avoir un effet sur la colonne FK lors de la modification de la colonne PK liée grâce à `ON DELETE` (et `ON UPDATE`, plus rare) avec comme options `CASCADE`, `SET NULL` et `SET DEFAULT`.  
 Par défaut, c'est `ON DELETE NO ACTION` qui est utilisé.
 
 ```{sql, eval=FALSE}
 CREATE TABLE ma_table(
-    ma_colonne_1 TYPE CONSTRAINT nn_matable_macolonne1 NOT NULL,
-    ma_colonne_2 TYPE CONSTRAINT un_matable_macolonne2 UNIQUE,
-    ma_colonne_3 TYPE CONSTRAINT pk matable_macolonne3 PRIMARY KEY,
-    ma_colonne_4 TYPE,
-    ma_colonne_5 TYPE,
-    ma_colonne_6 TYPE,
-    ma_colonne_7 TYPE IDENTITY(1,1),
-    ...
+    ma_colonne_1 TYPE CONSTRAINT nn_matable_macolonne1 NOT NULL,
+    ma_colonne_2 TYPE CONSTRAINT un_matable_macolonne2 UNIQUE,
+    ma_colonne_3 TYPE CONSTRAINT pk matable_macolonne3 PRIMARY KEY,
+    ma_colonne_4 TYPE,
+    ma_colonne_5 TYPE,
+    ma_colonne_6 TYPE,
+    ma_colonne_7 TYPE IDENTITY(1,1),
+    ...
 
-// CONSTRAINT fk_matable_macolonne4 FOREIGN KEY ma_colonne_4 REFERENCES une_autre_table(colonne_a_lier),
-// il n'est pas conseille de gerer les cles etrangeres pendant la creation de la table mais plus tard, une fois toutes les tables creees
+ -- CONSTRAINT fk_matable_macolonne4 FOREIGN KEY ma_colonne_4 REFERENCES une_autre_table(colonne_a_lier),
+ -- il n'est pas conseille de gerer les cles etrangeres pendant la creation de la table mais plus tard, une fois toutes les tables creees
 
-    CONSTRAINT ck_matable_macolonne5 CHECK (ma_colonne_5 > 0),
-    CONSTRAINT df_matable_macolonne6 DEFAULT 0
-    );
+    CONSTRAINT ck_matable_macolonne5 CHECK (ma_colonne_5 > 0),
+    CONSTRAINT df_matable_macolonne6 DEFAULT 0
+    );
 ```
 
-> Il est conseillé de donner un nom explicatif à chaque contrainte, pour faciliter leur (ré)utilisation.  
+> Il est conseillé de donner un nom explicatif à chaque contrainte, pour faciliter leur (ré)utilisation.  
 Par convention, on commence par rappeler le type de contrainte puis le nom de la table puis le nom de la ou les colonnes concernées : `pk_table_col1col2`
 
-Modifier une table :  
-Colonnes : ajouter, modifier, renommer, supprimer
+Modifier une table :  
+
+  - Colonnes : ajouter, modifier, renommer, supprimer
 
 ```{sql, eval=FALSE}
 ALTER TABLE ma_table ADD ma_nouvelle_colonne TYPE;
@@ -181,12 +202,12 @@ ALTER TABLE ma_table RENAME COLUMN ancien_nom TO nouveau_nom;
 ALTER TABLE ma_table DROP COLUMN ma_colonne_a_supprimer;
 ```
 
-Contraintes : ajouter, supprimer, activer/désactiver
+  - Contraintes : ajouter, supprimer, activer/désactiver
 
 ```{sql, eval=FALSE}
 ALTER TABLE ma_table [WITH CHECK | WITH NO CHECK] ADD CONSTRAINT (description de la contrainte);
 
-// ajout d'une cle etrangere
+ -- ajout d'une cle etrangere
 ALTER TABLE ma_table ADD CONSTRAINT fk_matable_macolonne4 FOREIGN KEY ma_colonne_4 REFERENCES une_autre_table(colonne_a_lier) ON DELETE CASCADE;
 
 ALTER TABLE ma_table DROP CONSTRAINT contrainte_a_suprrimer;
@@ -196,7 +217,7 @@ ALTER TABLE ma_table {CHECK | NO CHECK} CONSTRAINT {ALL | contrainte_a_activer_d
 
 > Il est possible de passer outre les contraintes déjà en place avec `WITH NO CHECK` : attention, ce n'est pas très recommandé.
 
-Supprimer une table :
+Supprimer une table :  
 D'abord supprimer les contraintes, puis la table
 
 ```{sql, eval=FALSE}
@@ -205,15 +226,14 @@ ALTER TABLE ma_table {CHECK | NO CHECK} CONSTRAINT ALL;
 DROP TABLE ma_table;
 ```
 
-Index :
-créer, supprimer, réorganiser, reconstruire
+Index : créer, supprimer, réorganiser, reconstruire
 
 > Les index sont automatiquement créés pour les clés primaires (`CLUSTERED`) et les clés secondaires.
 
 > On en définit généralement sur les clés étrangères et les colonnes de tri et de recherche.
 
 ```{sql, eval=FALSE}
-CREATE [UNIQUE] UNCLUSTERED INDEX mon_index ON ma_table(une_colonne_a_indexer [ASC | DSC])
+CREATE [UNIQUE] UNCLUSTERED INDEX mon_index ON ma_table(une_colonne_a_indexer [ASC | DSC]);
 
 DROP INDEX mon_index ON ma_table;
 
@@ -235,64 +255,64 @@ INSERT [INTO] ma_table(col1,col2) VALUES (val1,val2);
 Modifier des données :
 
 ```{sql, eval=FALSE}
-// pour toutes les lignes de la table
+ -- pour toutes les lignes de la table
 UPDATE ma_table SET ma_colonne = nouvelle_valeur;
 
-// pour les lignes concernees par la condition
+ -- pour les lignes concernees par la condition
 UPDATE ma_table SET ma_colonne = nouvelle_valeur
-    WHERE {condition};
+    WHERE {condition};
 ```
 
 Supprimer des données :
 
 ```{sql, eval=FALSE}
-// pour toutes les lignes de la table
+ -- pour toutes les lignes de la table
 DELETE [FROM] ma_table;
 
-// pour les lignes concernees par la condition
+ -- pour les lignes concernees par la condition
 DELETE [FROM] ma_table
-    WHERE {condition};
+    WHERE {condition};
 ```
 
-Extraire (rechercher) des informations :  
+Extraire (rechercher) des informations :  
 
-Projection : sélection des colonnes
+  - Projection : sélection des colonnes
 
 > Il est notamment possible d'utiliser `ALL | DISTINCT` et de faire des calculs élémentaires comme `UPPER(colonne_a_mettre_en_majuscule) | CONVERT(type, expression, code du format de date) | ISNULL(boolean) | [texte a afficher] | TRIM()`.
 
 ```{sql, eval=FALSE}
-// pour la table en entier
+ -- pour la table en entier
 SELECT * FROM ma_table;
 
-// pour toutes les lignes mais certaines colonnes uniquement
+ -- pour toutes les lignes mais certaines colonnes uniquement
 SELECT col1, col2 FROM ma_table;
 
-// pour les lignes concernees par la condition et certaines colonnes
+ -- pour les lignes concernees par la condition et certaines colonnes
 SELECT col4, col8 FROM ma_table
-    WHERE {condition};
+    WHERE {condition};
 ```
 
-Restriction : sélection des lignes avec `WHERE`
+  - Restriction : sélection des lignes avec `WHERE`
 
-> Condition boléenne qui peut être composée de : colonnes, constantes, fonctions, opérateurs de comparaison et logiques tels que `OR`, `AND`, `> | >= | < | <= | = | != ou <>`, `IN | BETWEEN | LIKE | IS NULL | IS NOT NULL`.
+> Condition boléenne qui peut être composée de : colonnes, constantes, fonctions, opérateurs de comparaison et logiques tels que `OR | AND`, `> | >= | < | <= | = | != ou <>`, `IN | BETWEEN | LIKE | IS NULL | IS NOT NULL`.
 
-Calcul d'agrégat, *çàd* regroupement de lignes, avec `GROUP BY` et des fonctions telles que `COUNT() | SUM() | AVG() | MIN() | MAX()`.  
+  - Calcul d'agrégat, *çàd* regroupement de lignes, avec `GROUP BY` et des fonctions telles que `COUNT() | SUM() | AVG() | MIN() | MAX()`.  
 Il est possible d'ajouter une restriction sur les lignes calculées avec `HAVING`.
 
 > Il est nécessaire d'avoir une liste de regroupements qui comprend au minimum la liste de la projection, à laquelle on enlève les colonnes utilisées pour le calcul d'agrégat.
 
 ```{sql, eval=FALSE}
 SELECT col5 FROM ma_table
-    WHERE {condition}
+    WHERE {condition}
     GROUP BY {expression}
     HAVING {condition};
 ```
 
-Tri : dernière clause du `SELECT` avec `ORDER BY` (qui peut être `ASC | DESC`).
+  - Tri : dernière clause du `SELECT` avec `ORDER BY` (qui peut être `ASC | DESC`).
 
 > A utiliser avec parcimonie car très coûteux.
 
-Jointures : fusion de tables de différentes manières avec `cross join`, `inner join`, `left | right | full outer join`
+  - Jointures : fusion de tables de différentes manières avec `cross join`, `inner join`, `left | right | full outer join`
 
 ```{sql, eval=FALSE}
 SELECT a.col2, a.col6, a.col9 FROM ma_table AS a
@@ -302,12 +322,17 @@ SELECT a.col2, a.col6, a.col9 FROM ma_table AS a
 
 Les notions suivantes ne sont pas détaillées ici :
 
-+ tables temporaires : 
+  `r knitr::asis_output("\U22B9")` tables temporaires : 
 
 ```{sql, eval=FALSE}
+-- table temporaire locale
 SELECT AVG(col2) AS moyenne INTO #table_temporaire FROM ma_table;
+
+-- table temporaire globale
+SELECT AVG(col2) AS moyenne INTO ##table_temporaire FROM ma_table;
 ```
-+ sous-requêtes (imbriquées, corrélées) :
+
+  `r knitr::asis_output("\U22B9")` sous-requêtes (imbriquées, corrélées) :
 
 ```{sql, eval=FALSE}
 -- requete interne imbriquee
@@ -324,18 +349,61 @@ DELETE FROM ma_table_a AS a
 
 ```
 
-+ table CTE (Common Table Expression)
-+ UNION, EXCEPT, INTERSECT
-+ vues
+  `r knitr::asis_output("\U22B9")` table CTE (Common Table Expression) :  
+éléments de la norme ANSI SQL99, pour simplifier l'écriture et donc la compréhension des requêtes complexes --> plus performantes que les tables temporaires
 
 ```{sql, eval=FALSE}
-
+With Table_name_cte[(col1, col2)] AS (
+  SELECT ...
+);
 ```
 
-### DCL
+  `r knitr::asis_output("\U22B9")` UNION, EXCEPT, INTERSECT
 
-Transactions :
+  `r knitr::asis_output("\U22B9")` vues :  
+Une vue stocke une requête SELECT mais jamais de données.
 
+```{sql, eval=FALSE}
+-- creer une vue
+CREATE VIEW ma_vue[(colonne1, colonne2, ...)] AS 
+  SELECT ...[WITH CHECK OPTION];
+
+-- supprimer une vue
+DROP VIEW ma_vue;
+```
+
+### TCL
+
+Les transactions permettent de créer des "bacs à sable", *çàd* des environnements où l'on peut tester, se tromper, remonter dans le temps et, quand on est prêt, valider les modifications.
+
+Une transaction est un ensemble indivisible d'instructions, qui suit les principes ACID (\@ref(acid)).
+
+Gérer une transaction :
+
+```{sql, eval=FALSE}
+BEGIN TRANSACTION ma_transaction;
+
+-- si reussie, on la valide
+COMMIT TRANSACTION ma_transaction;
+
+-- si echouee, on l'annule (on remonte dans le temps)
+ROLLBACK TRANSACTION ma_transaction;
+
+-- on peut faire des points d'arrêt au sein d'une transaction
+SAVE TRANSACTION mon_point_arret;
+```
+
+> Il est possible d'abréger `TRANSACTION` par `TRAN`.
+
+Un verrou permet de restreindre voire interdire l'accès à une partie des données. On l'utilise lorsque l'on ouvre une transaction, pour pas que les utilisateurs puissent interférer ou avoir accès à des données non validées.
+
+Imposer un verrou pour n'afficher que les données validées :
+
+```{sql, eval=FALSE}
+SET TRANSACTION ISOLATION LEVEL READ COMMITED;
+```
+
+> Il existe d'autres options : `READ UNCOMMITED | REPEATABLE READ | SERIALIZABLE`.
 
 ## Charger le pilote JDBC
 
@@ -349,7 +417,7 @@ Ajouter le fichier du pilote dans le dossier "lib".
 
 Configurer le *Build Path* du projet en y ajoutant le fichier du pilote : il apparaît maintenant dans les *Referenced Libraries*.
 
-> Dans Eclipse, un exemple :  
+> Dans Eclipse, un exemple :  
 Project > Properties > Java Build Path > Libraries > Add JARs... > *Sélectionner le pilote* > OK
 
 Bravo ! Maintenant, le pilote est chargé automatiquement à l'exécution du projet.
@@ -391,5 +459,5 @@ Le Design Pattern DAO : démo
 ## Exemple simple
 
 ```{java, eval=FALSE}
-// à compléter
+ -- à compléter
 ```

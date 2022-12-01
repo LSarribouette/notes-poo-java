@@ -41,7 +41,7 @@ Bonnes pratiques
 
 Principes : 
 
-  - ACID  
+  - ACID {#acid}  
   - DRY  
   - Encapsulation 
   - Visibilité  
