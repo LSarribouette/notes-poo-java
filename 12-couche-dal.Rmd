@@ -589,15 +589,79 @@ public class TestDBConnexion {
 
 ## Exécuter une instruction SQL
 
+La connexion à une base de données permet l'exécution d'instructions SQL.
+
+Trois types d'instructions SQL peuvent être exécutés :  
+
+  - les requêtes simples
+  - les requêtes paramétrées (ou précompilées)
+  - les procédures stockées
+  
+A chacun de ces types correspond une classe de l'API JDBC et une instance de ces classes peut être obtenue par une méthode spécifique de la classse `Connection`.
+
+```{r cache=TRUE, echo=FALSE, fig.cap='(ref:tab-wrapper)', message=FALSE, warning=FALSE}
+library(dplyr)
+library(kableExtra)
+
+tab <- dplyr::bind_cols(
+  c("requête simple",
+    "requête paramétrée",
+    "procédure stockée"), 
+  c("Statement",
+    "PreparedStatement",
+    "CallableStatement"),
+  c("createStatement",
+    "prepareStatement",
+    "prepareCall")
+  ) 
+tab %>% setNames(c("Types d'instruction SQL", "classe correspondante", "méthode associée")) %>% 
+  kableExtra::kbl("html", caption = "Récapitulatif des instructions SQL avec leur classe correspondante dans l'API JDBC et les méthodes associées de la classe `Connection`") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+<br>
+Ces trois classes proposent des méthodes similaires pour exécuter les instructions SQL.
+
+Pour l'extraction (recherche) d'informations avec une instruction `SELECT`, on utilise la méthode `executeQuery()` qui retourne un `ResultSet` non exploitable qu'il faut parcourir
+  
+> Un objet de type `ResultSet` est **jeu d'enregistrements**. Il permet de lire les résultats de la requête obtenus auprès du serveur.  
+La notion est détaillée plus loin (\@ref(resultset)).
+  
+Pour la mise à jour (insertion, modification, suppression) d'informations avec des instructions `INSERT | UPDATE | DELETE`, on utilise la méthode `executeUpdate()` qui retourne un entier indiquant le nombre de lignes concernées
+
+D'autres méthodes sont disponibles, comme `execute()` qui retourne un booléan indiquant si un jeu d'enregistrements a été généré et `executeBatch()` qui permet d'exécuter un ensemble d'instructions SQL par lot.  
+Elles ne seront pas détaillées ici.
+
+<br>
+Les trois méthodes associées peuvent être utilisées sans paramètre.
+
+Dans le cas d'une instruction `SELECT`, le jeu d'enregistrements généré sera par défaut en lecture seule et avec un défilement en avant uniquement.
+
+Il est possible de modifier ces caractéristiques en donnant deux paramètres aux méthodes, dont les constantes sont définies la classe `ResultSet`  :
+
+  - le type de jeu d'enregistrements: `ResultSet.TYPE_FORWARD_ONLY | TYPE_SCROLL_INSENSITIVE | TYPE_SCROLL`
+  - la possibilité de modification des informations : `ResultSet.CONCUR_READ_ONLY | CONCUR_UPDATABLE` 
+
+
 ### Statement
+
+Un objet de type `Statement` peut prendre en charge l'exécution de n'importe quelle instruction SQL (DDL ou DML, par exemple). C'est l'objet le plus élémentaire permettant l'exécution de requêtes SQL simples.
+
+Il est obtenu par la méthode de `createStatement` de la connexion :  
+`Statement stm = cnx.createStatement();`  
+
+Sans paramètres, la méthode 
+
 
 ### PreparedStatement
 
 ### CallableStatement
 
-## Gérer les transactions
+### ResultSet
 
-## Externaliser la chaîne de connexion
+C'est un objet prédéfini qui se fait l'équivalent du cursor SQL. On peut en appeler certaines méthodes pour intéragir avec sa database directement depuis notre programme java.
+
+## Gérer les transactions
 
 ## Design Pattern DAO
 
