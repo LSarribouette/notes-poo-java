@@ -28,16 +28,16 @@ L'API JDBC est une bibliothèque de classes JDBC, qui se charge de trois étapes
 
 Les principales classes de l'API JDBC que nous allons utiliser permettent de retracer le cheminement logique depuis le pilote jusqu'aux données :
 
-  1. la classe `DriveManager` : point de départ qui assure la liaison avec le pilote, c'est par son intermédiaire que l'on obtient une connexion vers la base de données
+  - 1/ la classe `DriveManager` : point de départ qui assure la liaison avec le pilote, c'est par son intermédiaire que l'on obtient une connexion vers la base de données
   
-  2. la classe `Connection` : représente une connexion vers la base de données(  
+  - 2/ la classe `Connection` : représente une connexion vers la base de données  
   
-  3. La connexion ainsi créée permet de transmettre des instructions (*requêtes*) vers la base :
-    -la classe `Statement` : utilisée pour exécuter les requêtes simples (statiques) et retourner le résultat \@ref(statement)
-    -la classe `PreparedStatement` : utilisée pour les requêtes paramétrées \@ref(prepared-statement) (représente les requêtes précompilées)
-    -la classe `CallableStatement` : utilisée pour exécuter les procédures stockées \@ref(callable-statement)
+  - 3/ La connexion ainsi créée permet de transmettre des instructions (*requêtes*) vers la base :
+    - la classe `Statement` : utilisée pour exécuter les requêtes simples (statiques) et retourner le résultat \@ref(statement)  
+    - la classe `PreparedStatement` : utilisée pour les requêtes paramétrées \@ref(prepared-statement) (représente les requêtes précompilées)  
+    - la classe `CallableStatement` : utilisée pour exécuter les procédures stockées \@ref(callable-statement)
   
-  4. la classe `ResultSet` : les éventuels enregistrements sélectionnés par l'instruction SQL sont accessibles avec un élément `ResultSet`
+  - 4/ la classe `ResultSet` : les éventuels enregistrements sélectionnés par l'instruction SQL sont accessibles avec un élément `ResultSet`
 
 > Plus de détails sur les classes du package java.sql dans la javadoc [ici](https: --docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html).
 
@@ -376,7 +376,7 @@ DROP VIEW ma_vue;
 
 Les transactions permettent de créer des "bacs à sable", *çàd* des environnements où l'on peut tester, se tromper, remonter dans le temps et, quand on est prêt, valider les modifications.
 
-Une transaction est un ensemble indivisible d'instructions, qui suit les principes ACID (\@ref(annexe-c)).
+Une transaction est un ensemble indivisible d'instructions, qui suit les principes ACID (\@ref(acid)).
 
 Gérer une transaction :
 
@@ -411,7 +411,7 @@ Sur le site correspond au SGBD choisi, télécharger le pilote JDBC : un fichier
 
 Créer un projet Java.
 
-Créer un dossier "lib" à la racine du projet,*çàd au même niveau que le dossier "src".
+Créer un dossier "lib" à la racine du projet,*çàd* au même niveau que le dossier "src".
 
 Ajouter le fichier du pilote dans le dossier "lib".
 
@@ -420,9 +420,172 @@ Configurer le *Build Path* du projet en y ajoutant le fichier du pilote : il app
 > Dans Eclipse, un exemple :  
 Project > Properties > Java Build Path > Libraries > Add JARs... > *Sélectionner le pilote* > OK
 
-Bravo ! Maintenant, le pilote est chargé automatiquement à l'exécution du projet.
+
+> Dans IntelliJ, un exemple :  
+Clique-droit sur le projet > *Open Module Settings* > *Libraries* > "+" > Java > *Sélectionner le pilote* > OK
+
+Le pilote est chargé automatiquement à l'exécution du projet.
 
 ## Etablir une connexion
+
+La connexion à la base de données s'établit grâce aux classes `DriverManager` et `Connection` : on déclare une instance de la classe `Connection` et on l'initialise avec la méthode `getConnection` de la classe `DriverManager`.
+
+Cette méthode attend trois paramètres sous forme de chaîne de caractères : 
+
+  - l'url de la base de données, qui est sous la forme : `jdbc:typebasededonnees:host:port/nombasededonnees`
+  - le nom de l'utilisateur
+  - le mot de passe associé
+
+### Exemple de connexion simple
+
+Un exemple de connexion à une base de donnnées PostgreSQL, directement dans le `main` d'une classe de test :
+
+```{java, eval=FALSE}
+package fr.lsarribouette.mumblinginlayeredarchitecture.ihm;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class TestDBConnexion {
+    public static void main(String[] args) {
+
+    /* Il faut charger le module java.sql car il n'est pas charge par defaut :
+          - IntelliJ : alt+enter sur l'import java.sql > "add to module compiler"
+          - Eclipse : sans module-info.java, un import suffit
+                      avec module-info.java, ajouter "requires java.sql"
+     */
+     
+        String url = "jdbc:postgresql://localhost:5433/gestion_cours";
+        String user = "postgres";
+        String pwd = "postgres";
+        Connection cnx = null;
+        try {
+            cnx = DriverManager.getConnection(url,user,pwd);
+            System.out.println("Etat de la connexion : ");
+            System.out.println(cnx.isClosed()?"fermée":"ouverte");
+        } catch (SQLException e) {
+            System.out.println("Une erreur est survenue lors la connexion à la base de données.");
+        } finally {
+            try {
+                cnx.close();
+                System.out.println("Etat de la connexion après déconnexion : ");
+                System.out.println(cnx.isClosed() ? "fermée" : "ouverte");
+            } catch (SQLException e) {
+                System.out.println("Une erreur est survenue lors la déconnexion à la base de données.");
+            }
+        }
+```
+
+### Externaliser la chaîne de connexion
+
+Pour mieux organiser son code, il est possible d'externaliser la chaîne de connexion, *çàd* que l'on va séparer chaque étape en différents fichiers.
+
+On crée un fichier `connexion.properties` qui va servir à stocker les informations de connexion : les paramètres url, utilisateur, mot de passe associé.
+
+> `Properties` est une classe java qui propose une méthode pour lire ce type de fichiers.
+
+On ajoute une classe `Settings` qui va permettre de récupérer les informations de connexion stockées dans le fichier `connexion.properties`.  
+Elle est composée de :
+
+  - un attribut de classe `proprietes`
+  - un bloc anonyme qui récupère les informations de connexion : instancie `proprietes`, charge le fichier et traite une IOException
+  - méthode de classe `getPropriete()` qui permet de retourner une information de connexion
+
+> Les exceptions IO sont traitées dans la classe directement, car c'est bien au développeur de gérer ces erreurs.
+
+> Un bloc anonyme est exécuté en premier lors de l'appel de la classe, il est défini simplement avec `static {}`.
+
+On ajoute une classe DBConnexion qui va décrire des méthodes pour se connecter et se déconnecter de la base de données :
+
+  - méthode de classe `seConnecter()` qui crée la connexion avec la base de données : récupère les trois informations de connexion, instancie la connexion et la retourne, propage une SQLException
+  - méthode de classe `seDeconnecter()` qui arrête la connexion avec la base de données : vérifie si la connexion est null, la ferme si besoin et propage une SQLException
+  - *je teste dans ihm*
+
+> Les exceptions SQL sont progagées (`throws` dans la signature de la méthode) car c'est à l'administrateur de la base de données de gérer ces erreurs.
+
+Pour tester tout ça, on peut ajouter une classe de `testDBConnexion` dans la couche IHM où l'on va se connecter puis se déconnecter en traitant leurs exceptions SQL respectives.
+
+### Exemple de connexion avec externalisation
+
+Un exemple de connexion à une base de donnnées PostgreSQL, avec externalisation de la chaîne de connexion :
+
+> Les paramètres de connexion sont bien sûr à adapter à chaque base de données.
+
+Fichier `connexion.properties` :
+
+```{java, eval=FALSE}
+#parametres de connexion sur PostgreSQL
+url=jdbc:postgresql://localhost:5433/gestion_cours
+user=postgres
+pwd=postgres
+```
+
+Classe `Settings` :
+
+```{java, eval=FALSE}
+package fr.lsarribouette.mumblinginlayeredarchitecture.dal;
+
+import java.io.IOException;
+import java.util.Properties;
+
+public class Settings {
+    private static Properties proprietes;
+
+    // methode anonyme : lors de l'appel de la classe, ce bloc est execute en premier
+    static {
+        try {
+            proprietes = new Properties();
+            proprietes.load(Settings.class.getResourceAsStream("connexion.properties"));
+        } catch (IOException e) {
+            System.out.println("Une erreur est survenue lors de chargement du ficher connexion.properties.");
+        }
+    }
+
+    // methode qui retourne une information de connexion
+    public static String getPropriete(String cle) {
+        return proprietes.getProperty(cle);
+    }
+}
+```
+
+Classe DBConnexion :
+
+```{java, eval=FALSE}
+package fr.lsarribouette.mumblinginlayeredarchitecture.ihm;
+
+import fr.lsarribouette.mumblinginlayeredarchitecture.dal.DBConnexion;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class TestDBConnexion {
+    public static void main(String[] args) {
+
+    /* Il faut charger le module java.sql car il n'est pas charge par defaut :
+        alt+enter > "add to module compiler"
+     */
+
+        Connection cnx = null;
+        try {
+            cnx = DBConnexion.seConnecter();
+            System.out.println("Etat de la connexion : ");
+            System.out.println(cnx.isClosed()?"fermée":"ouverte");
+        } catch (SQLException e) {
+            System.out.println("Une erreur est survenue lors la connexion à la base de données.");
+        } finally {
+            try {
+                DBConnexion.seDeconnecter(cnx);
+                System.out.println("Etat de la connexion après déconnexion : ");
+                System.out.println(cnx.isClosed()?"fermée":"ouverte");
+            } catch (SQLException e) {
+                System.out.println("Une erreur est survenue lors la déconnexion à la base de données.");
+            }
+        }
+    }
+}
+```
 
 ## Exécuter une instruction SQL
 
